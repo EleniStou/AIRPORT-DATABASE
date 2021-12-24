@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     "id_arrival" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_arrival")
-    CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "arrival_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_arrival"),
+    CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "arrival_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
  --ΑΦΙΞΗ 
@@ -104,9 +104,9 @@ CREATE TABLE IF NOT EXISTS "DEPARTURE"(
     "id_departure" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_departure")
-    CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "departure_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_departure"),
+    CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "departure_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
  
@@ -116,9 +116,9 @@ CREATE TABLE IF NOT EXISTS "MID"(
     "id_mid" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_mid")
-    CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "mid_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_mid"),
+    CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "mid_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
 
@@ -130,8 +130,10 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('AF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
  ('BA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
  ('AZ','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
- ('TK','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849')
- ('AA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234')
-
+ ('TK','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849'),
+ ('AA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234'),
+ ('SU','Aeroflot','munich@aeroflot.de','ΡΩΣΙΑ','ΜΟΣΧΑ','www.aeroflot.ru','8000001151'),
+ ('EK','Emirates','contact@emirates.com','ΗΝΩΜΕΝΑ ΑΡΑΒΙΚΑ ΕΜΙΡΑΤΑ','ΝΤΟΥΜΠΑΙ','www.emirates.com','69945192000'),
+ ('EW','Eurowings','contact@eurowings.com','ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ','www.eurowings.com','2159988222')
  ;
 
