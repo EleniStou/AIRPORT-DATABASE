@@ -122,6 +122,10 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ); 
 
 
+-- --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
+INSERT INTO "TERMINAL"('name_terminal') VALUES
+('Terminal 1'),('Terminal 2'),('Terminal 3'),('Terminal 4'),('Terminal 5'),('Terminal 6');
+
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΙΑΣ
  INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
  ('AEG','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
