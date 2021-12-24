@@ -20,5 +20,13 @@ CREATE TABLE IF NOT EXISTS "LINE"(
 
  DROP TABLE IF EXISTS "AIRPLANE";
  CREATE TABLE IF NOT EXISTS "AIRPLANE"(
-     
- )
+    'id_airplane' integer NOT NULL
+    'name_airplane' varchar(20) NOT NULL
+    'seats' integer NOT NULL
+    'baggage' integer NOT NULL
+    'id_airline' integer NOT NULL
+    'name_category' varchar(30) NOT NULL
+    PRIMARY KEY('id_airplane')
+    CONSTRAINT "airplane_category_FK" FOREIGN KEY ('name_category') REFERENCES 'CATEGORY' ('name_category') ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "airplane_airline_FK" FOREIGN KEY ('id_airline') REFERENCES 'AIRLINE' ('id_airline') ON DELETE CASCADE ON UPDATE CASCADE
+ );
