@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS "FLIGHT"(
 DROP TABLE IF EXISTS "LINE";
 CREATE TABLE IF NOT EXISTS "LINE"(
     "id_line" integer NOT NULL,
-    "date_line" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    "day_line" varchar(10) NOT NULL,
+    "time_line" time NOT NULL DEFAULT '00:00:00',
     PRIMARY KEY ("id_line")
  );
 --ΑΕΡΟΠΛΑΝΟ
