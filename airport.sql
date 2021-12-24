@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('IBE','Iberia','contact@iberia.com','ΙΣΠΑΝΙΑ','ΜΑΔΡΙΤΗ','www.iberia.com','6950073874'),
  ('ITA','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
  ('KLM','KLM','contact@klm.com','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ','www.klm.com','6929993770'),
- ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΕΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
+ ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
  ('LUX','Luxair','group@luxairgroup.lu','ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ','www.luxair.lu','3522456123'),
  ('MAL','Malta MedAir','contact@malta.com','ΜΑΛΤΑ','ΒΑΛΕΤΑ','www.maltamedair.com','5621223355'),
  ('NOW','Norwegian','grupper@norwegian.no','ΝΟΡΒΗΓΙΑ','ΟΣΛΟ','www.norwegian.com','8005895000'),
@@ -159,13 +159,40 @@ CREATE TABLE IF NOT EXISTS "MID"(
 --ΔΕΔΟΜΕΝΑ ΚΑΤΗΓΟΡΙΑΣ
 INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦΟΡΑΣ');
 
---ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
+ --ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
  INSERT INTO "AIRPORT" ("id_airport", "name_airport", "country", "town") VALUES
- ('03527','ATHENS INTERNATIONAL AIRPORT ELEFTHERIOS VENIZELOS','ΕΛΛΑΔΑ','ΑΘΗΝΑ'),
- ('23894','Montréal-Pierre Elliott Trudeau International Airport','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ'),
- ('64273','Cairo International Airport','ΑΙΓΥΠΤΟΣ','ΚΑΙΡΟ'),
- ('16935','Paris Charles de Gaulle Airport','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ'),
- ('72590','London International Airport','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ'),
- ('30816','Leonardo da Vinci International Airport','ΙΤΑΛΙΑ','ΡΩΜΗ'),
- ('42693','Istanbul Airport','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
- ('51830','Dallas/Fort Worth International Airport','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ');
+ (03527, 'ATHENS INTERNATIONAL AIRPORT ELEFTHERIOS VENIZELOS', 'ΕΛΛΑΔΑ', 'ΑΘΗΝΑ'),
+ (16935, 'Montréal-Pierre Elliott Trudeau International Airport', 'ΚΑΝΑΔΑΣ', 'ΜΟΝΤΡΕΑΛ'),
+ (17543, 'Thessaloniki Airport Makedonia', 'ΕΛΛΑΔΑ', 'ΘΕΣΣΑΛΟΝΙΚΗ'),
+ (19065,'Singapore Changi Airport', 'ΣΙΓΚΑΠΟΥΡΗ', 'ΣΙΓΚΑΠΟΥΡΗ'),
+ (20674, 'Malta International Airport', 'ΜΑΛΤΑ', 'ΒΑΛΕΤΑ'),
+ (21896, 'Sheremetyevo - A.S. Pushkin international airport', 'ΡΩΣΙΑ', 'ΜΟΣΧΑ'),
+ (22874, 'OSLO AIRPORT', 'ΝΟΡΒΗΓΙΑ', 'ΌΣΛΟ'),
+ (25904, 'Boryspil International Airport', 'ΟΥΚΡΑΝΙΑ','ΚΙΕΒΟ'),
+ (26985, 'Stockholm Arlanda Airport', 'ΣΟΥΗΔΙΑ', 'ΣΤΟΚΧΟΛΜΗ'),
+ (27290, 'Dubai International Airport', 'ΗΝΩΜΕΝΑ ΑΡΑΒΙΚΑ ΕΜΙΡΑΤΑ','ΝΤΟΥΜΠΑΙ'),
+ (27342, 'Cairo International Airport', 'ΑΙΓΥΠΤΟΣ', 'ΚΑΙΡΟ'),
+ (28567, 'Kirov Airport', 'ΡΩΣΣΙΑ', 'ΚΙΡΟΦ'),
+ (28790, 'Kiruna Airport', 'ΣΟΥΗΔΙΑ', 'ΚΙΡΟΥΝΑ'),
+ (29856, 'Dublin Airport', 'ΙΡΛΑΝΔΙΑ','ΔΟΥΒΛΙΝΟ'),
+ (30689, " O'Hare International Airport", 'ΣΙΚΑΓΟ', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ'),
+ (31673, 'Suvarnabhumi Airport', 'ΤΑΪΛΑΝΔΗ','ΜΠΑΝΓΚΟΚ'),
+ (32895, 'WARSAW CHOPIN AIRPORT', 'ΠΟΛΩΝΙΑ','ΒΑΡΣΟΒΙΑ'),
+ (33745, 'Sydney Airport', 'ΑΥΣΤΡΑΛΙΑ', 'ΣΙΔΝΕΥ'),
+ (34869, 'DUSSELDORF AIRPORT', 'ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ'),
+ (35690, 'LISBON AIRPORT', 'ΛΙΣΑΒΟΝΑ', 'ΙΣΠΑΝΙΑ'),
+ (36490, 'Amsterdam Airport Schiphol', 'ΟΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
+ (37890, 'Luxembourg Airport', 'ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ'),
+ (38765, 'Tunis–Carthage International Airport', 'ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ'),
+ (45970, 'BARCELONA AIRPORT', 'ΙΣΠΑΝΙΑ', 'ΒΑΡΚΕΛΩΝΗ'),
+ (47860, 'Adolfo Suárez Madrid–Barajas Airport', 'ΙΣΠΑΝΙΑ', 'ΜΑΔΡΙΤΗ'),
+ (48769, 'Franjo Tuđman Airport Zagreb', 'ΚΡΟΑΤΙΑ','ΖΑΓΚΡΕΜΠ'),
+ (49028, 'Paris Charles de Gaulle Airport', 'ΓΑΛΛΙΑ', 'ΠΑΡΙΣΙ'),
+ (50276, 'London International Airport', 'ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ', 'ΛΟΝΔΙΝΟ'),
+ (54870, 'Antalya Airport', 'ΤΟΥΡΚΙΑ', 'ΑΤΤΑΛΕΙΑ'),
+ (58769, 'Giuseppe Verdi Airport', 'ΙΤΑΛΙΑ', 'ΠΑΡΜΑ'),
+ (59876, 'Odesa International Airport', 'ΟΥΚΡΑΝΙΑ','ΟΔΥΣΣΟΣ'),
+ (66319, 'Leonardo da Vinci International Airport', 'ΙΤΑΛΙΑ', 'ΡΩΜΗ'),
+ (80956, 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
+ (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ');
+
