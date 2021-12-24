@@ -72,8 +72,18 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
  --ΠΥΛΗ
  DROP TABLE IF EXISTS "GATE";
  CREATE TABLE IF NOT EXISTS "GATE"(
-     'name_gate' varchar(15) NOT NULL
-     'name_terminal' varchar(15) NOT NULL
-     PRIMARY KEY('name_gate')
-     CONSTRAINT "gate_terminal_FK" FOREIGN KEY ('name_terminal') REFERENCES 'TERMINAL' ('name_terminal') ON DELETE CASCADE ON UPDATE CASCADE
+    'name_gate' varchar(15) NOT NULL
+    'name_terminal' varchar(15) NOT NULL
+    PRIMARY KEY('name_gate')
+    CONSTRAINT "gate_terminal_FK" FOREIGN KEY ('name_terminal') REFERENCES 'TERMINAL' ('name_terminal') ON DELETE CASCADE ON UPDATE CASCADE
+ );
+
+ --ΑΕΡΟΔΡΟΜΙΟ
+ DROP TABLE IF EXISTS "AIRPORT";
+ CREATE TABLE IF NOT EXISTS "AIRPORT"(
+    'id_airport' integer NOT NULL
+    'name_airport' varchar(50) NOT NULL
+    'country' varchar(20) NOT NULL
+    'town' varchar(20) NOT NULL
+    PRIMARY KEY('id_airport')
  );
