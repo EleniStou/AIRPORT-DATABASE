@@ -87,47 +87,51 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
     "town" varchar(20) NOT NULL,
     PRIMARY KEY("id_airport")
  );
-
-
---ΑΕΡΟΠΟΡΙΚΗ ΕΤΑΙΡΙΑ
- INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
- ('A3','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
- ('AC','Air Canada','contact@aircanada.ca','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ','www.aircanada.com','6927115111'),
- ('SM','Air Cairo','res.rm@flyaircairo.com','ΑΙΓΥΠΤΟΣ','ΚΑΊΡΟ','www.flyaircairo.com','0222687681'),
- ('AF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
- ('BA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
- ('Az','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
- ('TK','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849');
-
 -- ΠΡΟΟΡΙΣΜΟΣ 
-DROP TABLE IF EXISTS "DESTINATION";
- CREATE TABLE IF NOT EXISTS "DESTINATION"(
-    'id_aerodromio_destination' INTEGER NOT NULL,
-    'id_grammi_destination' INTEGER NOT NULL,
-    'ID_destination' INTEGER NOT NULL,
-    PRIMARY KEY('ID_destination')
-    CONSTRAINT "id_aerodromio_destination_FK" FOREIGN KEY ('id_aerodromio_destination') REFERENCES 'DESTINATION' ('id_aerodromio_destination') ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "id_grammi_destination_FK" FOREIGN KEY ('id_grammi_destination') REFERENCES 'DESTINATION' ('id_grammi_destination') ON DELETE CASCADE ON UPDATE CASCADE
+DROP TABLE IF EXISTS "ARRIVAL";
+CREATE TABLE IF NOT EXISTS "ARRIVAL"(
+    "id_arrival" integer NOT NULL,
+    "id_line" integer NOT NULL,
+    "id_airport" integer NOT NULL,
+    PRIMARY KEY("id_arrival")
+    CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "arrival_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
  --ΑΦΙΞΗ 
- DROP TABLE IF EXISTS "DEPARTURE";
- CREATE TABLE IF NOT EXISTS "DEPARTURE"(
-     'id_aerodromio_departure' INTEGER NOT NULL,
-     'id_grammi_departure' INTEGER NOT NULL,
-     'ID_departure' INTEGER NOT NULL,
-    PRIMARY KEY('ID_departure')
-    CONSTRAINT "id_aerodromio_departure_FK" FOREIGN KEY ('id_aerodromio_departure') REFERENCES 'DEPARTURE' ('id_aerodromio_depsrture') ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "id_grammi_departure_FK" FOREIGN KEY ('id_grammi_departure') REFERENCES 'DEPARTURE' ('id_grammi_despsrture') ON DELETE CASCADE ON UPDATE CASCADE
- );
+DROP TABLE IF EXISTS "DEPARTURE";
+CREATE TABLE IF NOT EXISTS "DEPARTURE"(
+    "id_departure" integer NOT NULL,
+    "id_line" integer NOT NULL,
+    "id_airport" integer NOT NULL,
+    PRIMARY KEY("id_departure")
+    CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "departure_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+ ); 
+
  
  --ΕΝΔΙΑΜΕΣΟΣ ΣΤΑΘΜΟΣ
-  DROP TABLE IF EXISTS "MID";
- CREATE TABLE IF NOT EXISTS "MID"(
-     'id_aerodromio_mid' INTEGER NOT NULL,
-     'id_grammi_mid' INTEGER NOT NULL,
-     'ID_mid' INTEGER NOT NULL,
-    PRIMARY KEY('ID_mid')
-    CONSTRAINT "id_aerodromio_mid_FK" FOREIGN KEY ('id_aerodromio_mid') REFERENCES 'MID' ('id_aerodromio_mid') ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "id_grammi_mid_FK" FOREIGN KEY ('id_grammi_mid') REFERENCES 'MID' ('id_grammi_mid') ON DELETE CASCADE ON UPDATE CASCADE
- )
+DROP TABLE IF EXISTS "MID";
+CREATE TABLE IF NOT EXISTS "MID"(
+    "id_mid" integer NOT NULL,
+    "id_line" integer NOT NULL,
+    "id_airport" integer NOT NULL,
+    PRIMARY KEY("id_mid")
+    CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "mid_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+ ); 
+
+
+--ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΙΑΣ
+ INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
+ ('A3','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
+ ('AC','Air Canada','contact@aircanada.ca','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ','www.aircanada.com','6927115111'),
+ ('SM','Air Cairo','res.rm@flyaircairo.com','ΑΙΓΥΠΤΟΣ','ΚΑΊΡΟ','www.flyaircairo.com','2222687681'),
+ ('AF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
+ ('BA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
+ ('AZ','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
+ ('TK','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849')
+ ('AA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234')
+
+ ;
+
