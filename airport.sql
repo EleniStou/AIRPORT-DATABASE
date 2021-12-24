@@ -93,9 +93,9 @@ CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     "id_arrival" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_arrival")
-    CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "arrival_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_arrival"),
+    CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "arrival_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
  --ΑΦΙΞΗ 
@@ -104,9 +104,9 @@ CREATE TABLE IF NOT EXISTS "DEPARTURE"(
     "id_departure" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_departure")
-    CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "departure_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_departure"),
+    CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "departure_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
  
@@ -116,32 +116,43 @@ CREATE TABLE IF NOT EXISTS "MID"(
     "id_mid" integer NOT NULL,
     "id_line" integer NOT NULL,
     "id_airport" integer NOT NULL,
-    PRIMARY KEY("id_mid")
-    CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE
-    CONSTRAINT "mid_line_FK" FOREIGN KEY ("line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
+    PRIMARY KEY("id_mid"),
+    CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT "mid_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
 
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΙΑΣ
  INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
- ('A3','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
- ('AC','Air Canada','contact@aircanada.ca','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ','www.aircanada.com','6927115111'),
- ('SM','Air Cairo','res.rm@flyaircairo.com','ΑΙΓΥΠΤΟΣ','ΚΑΊΡΟ','www.flyaircairo.com','2222687681'),
- ('AF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
- ('BA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
- ('AZ','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
- ('TK','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849')
- ('AA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234')
-
+ ('AEG','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
+ ('AER','Aeroflot','munich@aeroflot.de','ΡΩΣΙΑ','ΜΟΣΧΑ','www.aeroflot.ru','8000001151'),
+ ('AIA','Air Cairo','res.rm@flyaircairo.com','ΑΙΓΥΠΤΟΣ','ΚΑΪΡΟ','www.flyaircairo.com','2222687681'),
+ ('AIC','Air Canada','contact@aircanada.ca','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ','www.aircanada.com','6927115111'),
+ ('AIF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
+ ('AMA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234'),
+ ('BRA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
+ ('EMI','Emirates','contact@emirates.com','ΗΝΩΜΕΝΑ ΑΡΑΒΙΚΑ ΕΜΙΡΑΤΑ','ΝΤΟΥΜΠΑΙ','www.emirates.com','6945192000'),
+ ('EUW','Eurowings','contact@eurowings.com','ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ','www.eurowings.com','2159988222'),
+ ('IBE','Iberia','contact@iberia.com','ΙΣΠΑΝΙΑ','ΜΑΔΡΙΤΗ','www.iberia.com','6950073874'),
+ ('ITA','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
+ ('KLM','KLM','contact@klm.com','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ','www.klm.com','6929993770'),
+ ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΕΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
+ ('LUX','Luxair','group@luxairgroup.lu','ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ','www.luxair.lu','3522456123'),
+ ('NOW','Norwegian','grupper@norwegian.no','ΝΟΡΒΗΓΙΑ','ΟΣΛΟ','www.norwegian.com','8005895000'),
+ ('SIQ','Singapore Airlines','de.feedback@singaporeair.com.sg','ΣΙΓΚΑΠΟΥΡΗ','ΣΙΓΚΑΠΟΥΡΗ','www.singaporeair.com','6917415659'),
+ ('SWI','SWISS','contact.@swiss.com','ΣΟΥΗΔΙΑ','ΣΤΟΚΧΟΛΜΗ','www.swiss.com','6986798000'),
+ ('TAP','TAP Air Portugal','contact@tap.com','ΠΟΡΤΟΓΑΛΙΑ','ΛΙΣΑΒΟΝΑ','www.flytap.com','8009311821'),
+ ('THA','Thai Airways International','muc@thai-airways.de','ΤΑΪΛΑΝΔΗ','ΜΠΑΝΓΚΟΚ','www.thaiairways.com','8924207010'),
+ ('TUA','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849')
  ;
 
- --ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
+--ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
  INSERT INTO "AIRPORT" ("id_airport", "name_airport", "country", "town") VALUES
- ('03527', 'ATHENS INTERNATIONAL AIRPORT ELEFTHERIOS VENIZELOS', 'ΕΛΛΑΔΑ', 'ΑΘΗΝΑ'),
- ('23894', 'Montréal-Pierre Elliott Trudeau International Airport', 'ΚΑΝΑΔΑΣ', 'ΜΟΝΤΡΕΑΛ'),
- ('64273', 'Cairo International Airport', 'ΑΙΓΥΠΤΟΣ', 'ΚΑΙΡΟ'),
- ('16935', 'Paris Charles de Gaulle Airport', 'ΓΑΛΛΙΑ', 'ΠΑΡΙΣΙ'),
- ('72590', 'London International Airport', 'ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ', 'ΛΟΝΔΙΝΟ'),
- ('30816', 'Leonardo da Vinci International Airport', 'ΙΤΑΛΙΑ', 'ΡΩΜΗ'),
- ('42693', 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
- ('51830', 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ');
+ ('03527','ATHENS INTERNATIONAL AIRPORT ELEFTHERIOS VENIZELOS','ΕΛΛΑΔΑ','ΑΘΗΝΑ'),
+ ('23894','Montréal-Pierre Elliott Trudeau International Airport','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ'),
+ ('64273','Cairo International Airport','ΑΙΓΥΠΤΟΣ','ΚΑΙΡΟ'),
+ ('16935','Paris Charles de Gaulle Airport','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ'),
+ ('72590','London International Airport','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ'),
+ ('30816','Leonardo da Vinci International Airport','ΙΤΑΛΙΑ','ΡΩΜΗ'),
+ ('42693','Istanbul Airport','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
+ ('51830','Dallas/Fort Worth International Airport','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ');
