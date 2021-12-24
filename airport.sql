@@ -16,8 +16,7 @@ CREATE TABLE IF NOT EXISTS "FLIGHT"(
 DROP TABLE IF EXISTS "LINE";
 CREATE TABLE IF NOT EXISTS "LINE"(
     "id_line" integer NOT NULL,
-    "day_line" varchar(10) NOT NULL,
-    "time_line" time NOT NULL DEFAULT '00:00:00',
+    "date_line" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
     PRIMARY KEY ("id_line")
  );
 --ΑΕΡΟΠΛΑΝΟ
@@ -302,18 +301,53 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (33745, 'Sydney Airport', 'ΑΥΣΤΡΑΛΙΑ', 'ΣΙΔΝΕΥ'),
  (34869, 'DUSSELDORF AIRPORT', 'ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ'),
  (35690, 'LISBON AIRPORT', 'ΛΙΣΑΒΟΝΑ', 'ΙΣΠΑΝΙΑ'),
- (36490, 'Amsterdam Airport Schiphol', 'ΟΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
+ (36490, 'Amsterdam Airport Schiphol', 'ΟΛΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
+ (36753, 'Lyon-Saint Exupéry Airport', 'ΓΑΛΛΙΑ', 'ΛΥΩΝ'),
  (37890, 'Luxembourg Airport', 'ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ'),
  (38765, 'Tunis–Carthage International Airport', 'ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ'),
+ (39759, 'Dubrovnik Airport', 'ΚΡΟΑΤΙΑ', 'ΝΤΟΥΜΠΡΟΒΝΙΚ'),
+ (40654, 'Luxor International Airport', 'ΛΟΥΞΟΡ', 'ΑΙΓΥΠΤΟΣ'),
+ (41235, 'Rotterdam The Hague Airport', 'ΡΟΤΕΡΝΤΑΜ', 'ΟΛΛΑΝΔΙΑ')
  (45970, 'BARCELONA AIRPORT', 'ΙΣΠΑΝΙΑ', 'ΒΑΡΚΕΛΩΝΗ'),
  (47860, 'Adolfo Suárez Madrid–Barajas Airport', 'ΙΣΠΑΝΙΑ', 'ΜΑΔΡΙΤΗ'),
  (48769, 'Franjo Tuđman Airport Zagreb', 'ΚΡΟΑΤΙΑ','ΖΑΓΚΡΕΜΠ'),
  (49028, 'Paris Charles de Gaulle Airport', 'ΓΑΛΛΙΑ', 'ΠΑΡΙΣΙ'),
  (50276, 'London International Airport', 'ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ', 'ΛΟΝΔΙΝΟ'),
+ (51234, 'Berlin Tegel Airport', 'ΓΕΡΜΑΝΙΑ', 'ΒΕΡΟΛΙΝΟ'),
  (54870, 'Antalya Airport', 'ΤΟΥΡΚΙΑ', 'ΑΤΤΑΛΕΙΑ'),
+ (55790, 'Oxford International Airport', 'ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ', 'ΟΞΦΟΡΔΗ'),
  (58769, 'Giuseppe Verdi Airport', 'ΙΤΑΛΙΑ', 'ΠΑΡΜΑ'),
  (59876, 'Odesa International Airport', 'ΟΥΚΡΑΝΙΑ','ΟΔΥΣΣΟΣ'),
  (66319, 'Leonardo da Vinci International Airport', 'ΙΤΑΛΙΑ', 'ΡΩΜΗ'),
  (80956, 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
- (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ');
+ (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ')
+ (99578, 'John F. Kennedy International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΝΕΑ ΥΟΡΚΗ');
 
+
+-- ΓΡΑΜΜΗ 
+
+--ΓΡΑΜΜΗ
+/*DROP TABLE IF EXISTS "LINE";
+CREATE TABLE IF NOT EXISTS "LINE"(
+    "id_line" integer NOT NULL,
+    "date_line" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    PRIMARY KEY ("id_line")
+ );*/
+ /* ΕΛΕΝΗ ΓΙΑ ΤΙΣ ΓΡΑΜΜΕΣ ΠΡΟΤΕΙΝΩ ΝΑ ΕΧΟΥΜΕ ΕΝΑ ΝΟΥΜΕΡΟ ΠΟΥ ΘΑ ΑΝΤΙΣΤΟΙΧΕΙ ΣΕ ΚΑΘΕ ΓΡΑΜΜΗ.
+  πχ  ΑΘΗΝΑ-ΛΟΝΔΙΝΟ 045 
+      ΑΘΗΝΑ-ΑΜΣΤΕΡΝΤΑΜ 903 κλπ και θα βαλω σε ολους του κωδικους 3 ψηφία. Τώρα για την ημερομηνία το DEFAULT '0000-00-00 00:00:00' το αλλάζω και βαζω μόνο μέρες και 
+      ώρα. Κάνω μερικά παρακάτω και συμπληρώνουμε. */
+
+
+INSERT INTO "LINE" ("id_line", "date_line") VALUES
+(035, 'ΔΕΥΤΕΡΑ 08:40:00'),
+(040, 'ΔΕΥΤΕΡΑ 09:00:00'),
+(047, 'ΔΕΥΤΕΡΑ 09:10:00'),
+(040, 'ΔΕΥΤΕΡΑ 09:20:00'),
+(050, 'ΔΕΥΤΕΡΑ 09:30:00'),
+(052, 'ΔΕΥΤΕΡΑ 09:40:00'),
+(060, 'ΔΕΥΤΕΡΑ 12:00:00'),
+(068, 'ΔΕΥΤΕΡΑ 13:30:00'),
+(040, 'ΔΕΥΤΕΡΑ 14:10:00');
+
+-- ΑΝ ΕΙΝΑΙ ΣΩΣΤΑ ΤΟ ΣΥΝΕΧΙΖΩΣΣ
