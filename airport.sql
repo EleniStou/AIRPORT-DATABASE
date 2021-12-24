@@ -324,15 +324,7 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (99578, 'John F. Kennedy International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΝΕΑ ΥΟΡΚΗ');
 
 
--- ΓΡΑΜΜΗ 
-
---ΓΡΑΜΜΗ
-/*DROP TABLE IF EXISTS "LINE";
-CREATE TABLE IF NOT EXISTS "LINE"(
-    "id_line" integer NOT NULL,
-    "date_line" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-    PRIMARY KEY ("id_line")
- );*/
+-- ΓΡΑΜΜΗ ΔΕΔΟΜΕΝΑ
  /* ΕΛΕΝΗ ΓΙΑ ΤΙΣ ΓΡΑΜΜΕΣ ΠΡΟΤΕΙΝΩ ΝΑ ΕΧΟΥΜΕ ΕΝΑ ΝΟΥΜΕΡΟ ΠΟΥ ΘΑ ΑΝΤΙΣΤΟΙΧΕΙ ΣΕ ΚΑΘΕ ΓΡΑΜΜΗ.
   πχ  ΑΘΗΝΑ-ΛΟΝΔΙΝΟ 045 
       ΑΘΗΝΑ-ΑΜΣΤΕΡΝΤΑΜ 903 κλπ και θα βαλω σε ολους του κωδικους 3 ψηφία. Τώρα για την ημερομηνία το DEFAULT '0000-00-00 00:00:00' το αλλάζω και βαζω μόνο μέρες και 
@@ -350,4 +342,4 @@ INSERT INTO "LINE" ("id_line", "date_line") VALUES
 (068, 'ΔΕΥΤΕΡΑ 13:30:00'),
 (040, 'ΔΕΥΤΕΡΑ 14:10:00');
 
--- ΑΝ ΕΙΝΑΙ ΣΩΣΤΑ ΤΟ ΣΥΝΕΧΙΖΩΣΣ
+-- ΑΝ ΕΙΝΑΙ ΣΩΣΤΑ ΤΟ ΣΥΝΕΧΙΖΩ
