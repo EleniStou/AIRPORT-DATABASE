@@ -153,12 +153,11 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('UNI','United','contact@united.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ ΑΜΕΡΙΚΗΣ','ΣΙΚΑΓΟ','www.united.com','6950985051'),
  ('VUE','Vueling','vuelingpass@gistc.es','ΙΣΠΑΝΙΑ','ΒΑΡΚΕΛΩΝΗ','www.vueling.com','8009277989');
 
---ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΛΑΝΟΥ
-INSERT INTO "AIRPLANE"("id_airplane","name_airplane","seats","baggage","id_airline","name_category") VALUES
-(1001,'AIRBUS A319','144')
-;
 
 
+
+--ΔΕΔΟΜΕΝΑ ΚΑΤΗΓΟΡΙΑΣ
+INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦΟΡΑΣ');
 
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
  INSERT INTO "AIRPORT" ("id_airport", "name_airport", "country", "town") VALUES
