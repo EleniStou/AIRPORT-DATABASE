@@ -36,5 +36,26 @@ CREATE TABLE IF NOT EXISTS "LINE"(
      'name_category' varchar(30) NOT NULL
     PRIMARY KEY('name_category')
  );
-
+--ΑΕΡΟΠΟΡΙΚΗ ΕΤΑΙΡΙΑ
+DROP TABLE IF EXISTS "AIRLINE";
+CREATE TABLE IF NOT EXISTS "AIRLINE"(
+    'id_airline' integer NOT NULL
+    'name_airline' varchar(50) NOT NULL
+    'email' varchar(20) NOT NULL
+    'country' varchar(20) NOT NULL
+    'town' varchar(20) NOT NULL
+    'web' varchar(90) NOT NULL
+    'phone' integer NOT NULL
+    PRIMARY KEY('id_airline')
+);
  
+ --CHECK-IN BOOTH
+ DROP TABLE IF EXISTS "CHECKIN";
+ CREATE TABLE IF NOT EXISTS "CHECKIN"(
+    'number' integer NOT NULL
+    'open_date' datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+    'close_date' datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
+    'id_airline' integer NOT NULL
+    PRIMARY KEY('number')
+    CONSTRAINT "checkin_airline_FK" FOREIGN KEY ('id_airline') REFERENCES 'AIRLINE' ('id_airline') ON DELETE CASCADE ON UPDATE CASCADE
+ );
