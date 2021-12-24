@@ -129,7 +129,8 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('AIA','Air Cairo','res.rm@flyaircairo.com','ΑΙΓΥΠΤΟΣ','ΚΑΪΡΟ','www.flyaircairo.com','2222687681'),
  ('AIC','Air Canada','contact@aircanada.ca','ΚΑΝΑΔΑΣ','ΜΟΝΤΡΕΑΛ','www.aircanada.com','6927115111'),
  ('AIF','Air France','mail.meda@airfrance.fr','ΓΑΛΛΙΑ','ΠΑΡΙΣΙ','www.airfrance.com','6929993772'),
- ('AMA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234'),
+ ('AMA','American Airlines','contact@americanair.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ ΑΜΕΡΙΚΗΣ','ΤΕΞΑΣ','www.americanairlines.com','6929993234'),
+ ('ASL','ASL Airlines Ireland','contact@ireland.com','ΙΡΛΑΝΔΙΑ','ΔΟΥΒΛΙΝΟ','www.aslairlines.ie','3849726345'),
  ('BRA','British Airways','contactbade@email.ba.com','ΗΝΩΜΕΝΟ ΒΑΣΙΛΕΙΟ','ΛΟΝΔΙΝΟ','www.britishairways.com','4215575758'),
  ('EMI','Emirates','contact@emirates.com','ΗΝΩΜΕΝΑ ΑΡΑΒΙΚΑ ΕΜΙΡΑΤΑ','ΝΤΟΥΜΠΑΙ','www.emirates.com','6945192000'),
  ('EUW','Eurowings','contact@eurowings.com','ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ','www.eurowings.com','2159988222'),
@@ -138,12 +139,19 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('KLM','KLM','contact@klm.com','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ','www.klm.com','6929993770'),
  ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΕΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
  ('LUX','Luxair','group@luxairgroup.lu','ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ','www.luxair.lu','3522456123'),
+ ('MAL','Malta MedAir','contact@malta.com','ΜΑΛΤΑ','ΒΑΛΕΤΑ','www.maltamedair.com','5621223355')
  ('NOW','Norwegian','grupper@norwegian.no','ΝΟΡΒΗΓΙΑ','ΟΣΛΟ','www.norwegian.com','8005895000'),
+ ('QAN','QANTAS','contact@qantas.com','ΑΥΣΤΡΑΛΙΑ','ΣΙΔΝΕΪ','www.qantas.com','1300655234'),
  ('SIQ','Singapore Airlines','de.feedback@singaporeair.com.sg','ΣΙΓΚΑΠΟΥΡΗ','ΣΙΓΚΑΠΟΥΡΗ','www.singaporeair.com','6917415659'),
  ('SWI','SWISS','contact.@swiss.com','ΣΟΥΗΔΙΑ','ΣΤΟΚΧΟΛΜΗ','www.swiss.com','6986798000'),
  ('TAP','TAP Air Portugal','contact@tap.com','ΠΟΡΤΟΓΑΛΙΑ','ΛΙΣΑΒΟΝΑ','www.flytap.com','8009311821'),
  ('THA','Thai Airways International','muc@thai-airways.de','ΤΑΪΛΑΝΔΗ','ΜΠΑΝΓΚΟΚ','www.thaiairways.com','8924207010'),
- ('TUA','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849')
+ ('TRA','Trade Air','sales@trade-air.com','ΚΡΟΑΤΙΑ','ΖΑΓΚΡΕΜΠ','www.trade-air.com','8516265156'),
+ ('TUA','Turkish Airlines','sales.muc@thy.com','ΤΟΥΡΚΙΑ','ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ','www.turkishairlines.com','6986799849'),
+ ('TUN','Tunisair','muenchen@tunisair.de','ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ','www.tunisair.com.tn','6927100110'),
+ ('UIA','UIA','uia@goldstar.gr','ΟΥΚΡΑΝΙΑ','ΚΙΕΒΟ','www.flyuia.com','2111003080'),
+ ('UNI','United','contact@united.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ ΑΜΕΡΙΚΗΣ','ΣΙΚΑΓΟ','www.united.com','6950985051'),
+ ('VUE','Vueling','vuelingpass@gistc.es','ΙΣΠΑΝΙΑ','ΒΑΡΚΕΛΩΝΗ','www.vueling.com','8009277989')
  ;
 
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
