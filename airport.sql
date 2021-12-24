@@ -3,7 +3,7 @@ BEGIN TRANSACTION;
 DROP TABLE IF EXISTS "FLIGHT";
 CREATE TABLE IF NOT EXISTS "FLIGHT"(
     "id_flight" integer NOT NULL,
-    "id_airplane" varchar(15) NOT NULL,
+    "id_airplane" integer NOT NULL,
     "date_flight" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
     "id_line" integer NOT NULL,
     "name_terminal" varchar(15) NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS "LINE"(
 --ΑΕΡΟΠΛΑΝΟ
  DROP TABLE IF EXISTS "AIRPLANE";
  CREATE TABLE IF NOT EXISTS "AIRPLANE"(
-    "id_airplane" varchar(15) NOT NULL,
+    "id_airplane" integer NOT NULL,
     "name_airplane" varchar(20) NOT NULL,
     "seats" integer NOT NULL,
     "baggage" integer NOT NULL,
@@ -151,8 +151,14 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('TUN','Tunisair','muenchen@tunisair.de','ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ','www.tunisair.com.tn','6927100110'),
  ('UIA','UIA','uia@goldstar.gr','ΟΥΚΡΑΝΙΑ','ΚΙΕΒΟ','www.flyuia.com','2111003080'),
  ('UNI','United','contact@united.com','ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ ΑΜΕΡΙΚΗΣ','ΣΙΚΑΓΟ','www.united.com','6950985051'),
- ('VUE','Vueling','vuelingpass@gistc.es','ΙΣΠΑΝΙΑ','ΒΑΡΚΕΛΩΝΗ','www.vueling.com','8009277989')
- ;
+ ('VUE','Vueling','vuelingpass@gistc.es','ΙΣΠΑΝΙΑ','ΒΑΡΚΕΛΩΝΗ','www.vueling.com','8009277989');
+
+--ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΛΑΝΟΥ
+INSERT INTO "AIRPLANE"("id_airplane","name_airplane","seats","baggage","id_airline","name_category") VALUES
+(1001,'AIRBUS A319','144')
+;
+
+
 
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΔΡΟΜΙΟΥ
  INSERT INTO "AIRPORT" ("id_airport", "name_airport", "country", "town") VALUES
