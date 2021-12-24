@@ -6,9 +6,11 @@ CREATE TABLE IF NOT EXISTS "FLIGHT"(
     'id_airplane' varchar(15) NOT NULL
     'date_flight' datetime NOT NULL DEFAULT '0000-00-00 00:00:00'
     'id_line' integer NOT NULL
+    'name_terminal' varchar(15) NOT NULL
     PRIMARY KEY('id_flight')
     CONSTRAINT "flight_airplane_FK" FOREIGN KEY ('id_airplane') REFERENCES 'AIRPLANE' ('id_airplane') ON DELETE CASCADE ON UPDATE CASCADE
     CONSTRAINT "flight_line_FK" FOREIGN KEY ('id_line') REFERENCES 'LINE' ('id_line') ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "flight_terminal_FK" FOREIGN KEY ('name_terminal') REFERENCES 'TERMINAL' ('name_terminal') ON DELETE CASCADE ON UPDATE CASCADE
 );
 --ΓΡΑΜΜΗ
 DROP TABLE IF EXISTS "LINE";
@@ -58,4 +60,20 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
     'id_airline' integer NOT NULL
     PRIMARY KEY('number')
     CONSTRAINT "checkin_airline_FK" FOREIGN KEY ('id_airline') REFERENCES 'AIRLINE' ('id_airline') ON DELETE CASCADE ON UPDATE CASCADE
+ );
+
+ --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
+ DROP TABLE IF EXISTS "TERMINAL";
+ CREATE TABLE IF NOT EXISTS "TERMINAL"(
+    'name_terminal' varchar(15) NOT NULL
+    PRIMARY KEY('name_terminal')
+ );
+
+ --ΠΥΛΗ
+ DROP TABLE IF EXISTS "GATE";
+ CREATE TABLE IF NOT EXISTS "GATE"(
+     'name_gate' varchar(15) NOT NULL
+     'name_terminal' varchar(15) NOT NULL
+     PRIMARY KEY('name_gate')
+     CONSTRAINT "gate_terminal_FK" FOREIGN KEY ('name_terminal') REFERENCES 'TERMINAL' ('name_terminal') ON DELETE CASCADE ON UPDATE CASCADE
  );
