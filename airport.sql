@@ -139,7 +139,7 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ('KLM','KLM','contact@klm.com','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ','www.klm.com','6929993770'),
  ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΕΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
  ('LUX','Luxair','group@luxairgroup.lu','ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ','www.luxair.lu','3522456123'),
- ('MAL','Malta MedAir','contact@malta.com','ΜΑΛΤΑ','ΒΑΛΕΤΑ','www.maltamedair.com','5621223355')
+ ('MAL','Malta MedAir','contact@malta.com','ΜΑΛΤΑ','ΒΑΛΕΤΑ','www.maltamedair.com','5621223355'),
  ('NOW','Norwegian','grupper@norwegian.no','ΝΟΡΒΗΓΙΑ','ΟΣΛΟ','www.norwegian.com','8005895000'),
  ('QAN','QANTAS','contact@qantas.com','ΑΥΣΤΡΑΛΙΑ','ΣΙΔΝΕΪ','www.qantas.com','1300655234'),
  ('SIQ','Singapore Airlines','de.feedback@singaporeair.com.sg','ΣΙΓΚΑΠΟΥΡΗ','ΣΙΓΚΑΠΟΥΡΗ','www.singaporeair.com','6917415659'),
