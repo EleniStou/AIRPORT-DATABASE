@@ -123,9 +123,18 @@ CREATE TABLE IF NOT EXISTS "MID"(
  ); 
 
 
--- --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
-INSERT INTO "TERMINAL"('name_terminal') VALUES
+--ΔΕΔΟΜΕΝΑ ΤΕΡΜΑΤΙΚΟΥ ΣΤΑΘΜΟΥ
+INSERT INTO "TERMINAL"("name_terminal") VALUES
 ('Terminal 1'),('Terminal 2'),('Terminal 3'),('Terminal 4'),('Terminal 5'),('Terminal 6');
+
+--ΔΕΔΟΜΕΝΑ ΠΥΛΗΣ
+INSERT INTO "GATE"("name_gate","name_terminal") VALUES
+('A01-A08','Terminal 1'),('A09-A16','Terminal 1'),('A17-A24','Terminal 1'),('A25-A32','Terminal 1'),
+('B01-B08','Terminal 2'),('B09-B16','Terminal 2'),('B17-B24','Terminal 2'),('B25-B32','Terminal 2'),
+('C01-C08','Terminal 3'),('C09-C16','Terminal 3'),('C17-C24','Terminal 3'),('C25-C32','Terminal 3'),
+('D01-D08','Terminal 4'),('D09-D16','Terminal 4'),('D17-D24','Terminal 4'),('D25-D32','Terminal 4'),
+('E01-E08','Terminal 5'),('E09-E16','Terminal 5'),('E17-E24','Terminal 5'),('E25-E32','Terminal 5'),
+('F01-F08','Terminal 6'),('F09-F16','Terminal 6'),('F17-F24','Terminal 6'),('F25-F32','Terminal 6');
 
 --ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΙΑΣ
  INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
