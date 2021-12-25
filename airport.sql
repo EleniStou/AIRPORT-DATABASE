@@ -88,7 +88,8 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
     "town" varchar(20) NOT NULL,
     PRIMARY KEY("id_airport")
  );
--- ΠΡΟΟΡΙΣΜΟΣ 
+
+ --ΑΦΙΞΗ  
 DROP TABLE IF EXISTS "ARRIVAL";
 CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     "id_arrival" integer NOT NULL,
@@ -99,7 +100,7 @@ CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     CONSTRAINT "arrival_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
 
- --ΑΦΙΞΗ 
+-- ΠΡΟΟΡΙΣΜΟΣ
 DROP TABLE IF EXISTS "DEPARTURE";
 CREATE TABLE IF NOT EXISTS "DEPARTURE"(
     "id_departure" integer NOT NULL,
@@ -302,15 +303,15 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (26985, 'Stockholm Arlanda Airport', 'ΣΟΥΗΔΙΑ', 'ΣΤΟΚΧΟΛΜΗ'),
  (27290, 'Dubai International Airport', 'ΗΝΩΜΕΝΑ ΑΡΑΒΙΚΑ ΕΜΙΡΑΤΑ','ΝΤΟΥΜΠΑΙ'),
  (27342, 'Cairo International Airport', 'ΑΙΓΥΠΤΟΣ', 'ΚΑΙΡΟ'),
- (28567, 'Kirov Airport', 'ΡΩΣΣΙΑ', 'ΚΙΡΟΦ'),
+ (28567, 'Kirov Airport', 'ΡΩΣΙΑ', 'ΚΙΡΟΦ'),
  (28790, 'Kiruna Airport', 'ΣΟΥΗΔΙΑ', 'ΚΙΡΟΥΝΑ'),
  (29856, 'Dublin Airport', 'ΙΡΛΑΝΔΙΑ','ΔΟΥΒΛΙΝΟ'),
- (30689, " O'Hare International Airport", 'ΣΙΚΑΓΟ', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ'),
+ (30689, "O'Hare International Airport", 'ΣΙΚΑΓΟ', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ'),
  (31673, 'Suvarnabhumi Airport', 'ΤΑΪΛΑΝΔΗ','ΜΠΑΝΓΚΟΚ'),
  (32895, 'WARSAW CHOPIN AIRPORT', 'ΠΟΛΩΝΙΑ','ΒΑΡΣΟΒΙΑ'),
  (33745, 'Sydney Airport', 'ΑΥΣΤΡΑΛΙΑ', 'ΣΙΔΝΕΥ'),
  (34869, 'DUSSELDORF AIRPORT', 'ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ'),
- (35690, 'LISBON AIRPORT', 'ΛΙΣΑΒΟΝΑ', 'ΙΣΠΑΝΙΑ'),
+ (35690, 'LISBON AIRPORT', 'ΛΙΣΑΒΟΝΑ', 'ΠΟΡΤΟΓΑΛΙΑ'),
  (36490, 'Amsterdam Airport Schiphol', 'ΟΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
  (37890, 'Luxembourg Airport', 'ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ'),
  (38765, 'Tunis–Carthage International Airport', 'ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ'),
@@ -323,8 +324,9 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (58769, 'Giuseppe Verdi Airport', 'ΙΤΑΛΙΑ', 'ΠΑΡΜΑ'),
  (59876, 'Odesa International Airport', 'ΟΥΚΡΑΝΙΑ','ΟΔΥΣΣΟΣ'),
  (66319, 'Leonardo da Vinci International Airport', 'ΙΤΑΛΙΑ', 'ΡΩΜΗ'),
- (80956, 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΝΤΙΝΟΥΠΟΛΗ'),
- (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ');
+ (80956, 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ'),
+ (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ'),
+ (99654, 'Amsterdam Airport Schiphol','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ');
 
 -- ΔΕΔΟΜΕΝΑ ΠΤΗΣΗΣ
 INSERT INTO "FLIGHT"("id_flight","id_airplane","date_flight","id_line","name_terminal") VALUES
@@ -390,7 +392,44 @@ INSERT INTO "LINE" ("id_line", "day_line","time_line") VALUES
 (025, 'ΣΑΒΒΑΤΟ', '01:33:00'),--ΙΣΠΑΝΙΑ
 (026, 'ΣΑΒΒΑΤΟ', '05:20:00'),--ΟΥΚΡΑΝΙΑ
 (027, 'ΣΑΒΒΑΤΟ', '10:20:00'),--ΙΣΠΑΝΙΑ/ΒΑΡΚΕΛΩΝΗ
-(028, 'ΣΑΒΒΑΤΟ', '18:40:00'),--ΠΟΛΩΝΕΙΑ
+(028, 'ΣΑΒΒΑΤΟ', '18:40:00'),--ΠΟΛΩΝΙΑ
 (029, 'ΣΑΒΒΑΤΟ', '19:50:00'),--ΣΙΓΚΑΠΟΥΡΗ
 (030, 'ΣΑΒΒΑΤΟ', '20:00:00'),--ΙΤΑΛΙΑ
 (031, 'ΣΑΒΒΑΤΟ', '22:40:00');--ΠΟΡΤΟΓΑΛΙΑ
+
+--ΔΕΔΟΜΕΝΑ ΠΡΟΟΡΙΣΜΟΥ
+INSERT INTO "DEPARTURE"("id_departure","id_line","id_airport") VALUES
+(2001,001,03527),
+(2002,002,21896),
+(2003,004,16935),
+(2004,006,99362),
+(2005,008,27290),
+(2006,009,47860),
+(2007,011,58769),
+(2008,014,35690),
+(2009,015,80956),
+(2010,019,17543),
+(2011,020,28567),
+(2012,022,50276),
+(2013,024,34869),
+(2014,025,47860),
+(2015,027,45970),
+(2016,029,59876);
+
+--ΔΕΔΟΜΕΝΑ ΑΦΙΞΗΣ
+INSERT INTO "ARRIVAL"("id_arrival","id_line","id_airport") VALUES
+(3001,003,27342),
+(3002,005,16935),
+(3003,007,29856),
+(3004,010,47860),
+(3005,012,99654),
+(3006,013,19065),
+(3007,016,80956),
+(3008,017,45970),
+(3009,018,03527),
+(3010,021,99362),
+(3011,023,27290),
+(3012,028,32895),
+(3013,026,59876),
+(3014,030,66319),
+(3015,031,35690);
