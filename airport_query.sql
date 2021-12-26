@@ -60,3 +60,17 @@ FROM AIRLINE AS A JOIN CHECKIN AS C ON A.id_airline = C.id_airline;
 SELECT COUNT(F.id_flight) AS FLIGHTS
 FROM FLIGHT as F join LINE as L on F.id_line = L.id_line 
 WHERE ((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line)) = 0;
+
+--7.Eμφάνιση αφίξεων και ενδιάμεσων στάσεων
+--(id γραμμής, χώρα άφιξης,χώρα ενδιάμεσης στάσης)
+SELECT L.id_line, A1.country as 'From', A2.country as 'Via'
+FROM AIRPORT AS A1 JOIN ARRIVAL AS A ON A1.id_airport = A.id_airport
+JOIN LINE AS L ON A.id_line = L.id_line
+JOIN MID AS M ON L.id_line = M.id_line
+JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport;
+--Αντίστοιχα για προορισμούς
+SELECT L.id_line, A1.country as 'To', A2.country as 'Via'
+FROM AIRPORT AS A1 JOIN DEPARTURE AS D ON A1.id_airport = D.id_airport
+JOIN LINE AS L ON D.id_line = L.id_line
+JOIN MID AS M ON L.id_line = M.id_line
+JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport;
