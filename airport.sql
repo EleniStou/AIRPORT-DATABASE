@@ -55,12 +55,14 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
  --CHECK-IN BOOTH
  DROP TABLE IF EXISTS "CHECKIN";
  CREATE TABLE IF NOT EXISTS "CHECKIN"(
-    "number" integer NOT NULL,
-    "open_date" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-    "close_date" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    "number" varchar(10) NOT NULL,
+    "open_time" time NOT NULL DEFAULT '00:00:00',
+    "close_time" datetime NOT NULL DEFAULT '00:00:00',
     "id_airline" integer NOT NULL,
-    PRIMARY KEY("number"),
+    "id_line" integer NOT NULL,
+    PRIMARY KEY("id_line"),
     CONSTRAINT "checkin_airline_FK" FOREIGN KEY ("id_airline") REFERENCES "AIRLINE" ("id_airline") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "checkin_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line")  ON DELETE CASCADE ON UPDATE CASCADE
  );
 
  --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
@@ -444,3 +446,22 @@ INSERT INTO "MID"("id_mid","id_line","id_airport") VALUES
 (4004, 020, 29856),-- ΡΩΣΙΑ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ ΔΟΥΒΛΙΝΟ
 (4005, 029, 80956),-- ΣΙΓΚΑΠΟΥΡΗ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ ΤΟΥΡΚΙΑ
 (4006, 031, 66319);-- ΠΟΡΤΟΓΑΛΙΑ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ ΙΤΑΛΙΑ
+
+ INSERT INTO "CHECKIN"("number","open_time","close_time","id_airline","id_line")VALUES
+ ('00-05','04:15:00','07:15:00','AEG',001),
+ ('06-11','18:20:00','21:20:00','AER',002),
+ ('12-17','23:55:00','02:55:00','AIC',004),
+ ('18-23','12:50:00','15:50:00','AMA',006),
+ ('24-29','22:40:00','01:40:00','EMI',008),
+ ('30-35','04:00:00','07:00:00','IBE',009),
+ ('36-41','04:30:00','07:30:00','ITA',011),
+ ('42-47','07:55:00','10:55:00','TAP',014),
+ ('48-53','10:20:00','13:20:00','TUA',015),
+ ('00-05','20:45:00','23:45:00','AEG',019),
+ ('06-11','07:20:00','10:20:00','AER',020),
+ ('54-59','11:50:00','14:50:00','BRA',022),
+ ('60-65','21:15:00','00:15:00','EUW',024),
+ ('30-35','22:13:00','01:13:00','IBE',025),
+ ('66-71','07:00:00','10:00:00','VUE',027),
+ ('72-77','16:30:00','19:30:00','SIN',029)
+ ;
