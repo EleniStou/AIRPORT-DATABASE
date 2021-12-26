@@ -73,4 +73,15 @@ SELECT L.id_line, A1.country as 'To', A2.country as 'Via'
 FROM AIRPORT AS A1 JOIN DEPARTURE AS D ON A1.id_airport = D.id_airport
 JOIN LINE AS L ON D.id_line = L.id_line
 JOIN MID AS M ON L.id_line = M.id_line
-JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport;
+JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport; 
+
+--6.Ποιές πύλες χρησιμοποιούνται πχ στις 2021-01-05 
+select name_gate 
+from TERMINAL as T JOIN GATE as G ON T.name_terminal = G.name_terminal 
+JOIN FLIGHT as F ON T.name_terminal = F.name_terminal 
+WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d','2021-01-05');
+
+--7. Εμφάνιση πτήσεων με ενδιάμεσες στάσεις 
+SELECT * FROM LINE as L JOIN MID as M on L.id_line = M.id_line
+
+
