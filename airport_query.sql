@@ -55,3 +55,8 @@ join AIRPORT as A on AR.id_airport = A.id_airport;
 --(id,όνομα,email,χώρα,πόλη,web,τηλέφωνο,check-in)
 SELECT DISTINCT A.id_airline ,name_airline,country,town,email,web,phone,number
 FROM AIRLINE AS A JOIN CHECKIN AS C ON A.id_airline = C.id_airline; 
+
+--6.Εμφάνιση πλήθους πτήσεων χωρίς καθυστερήσεις
+SELECT COUNT(F.id_flight) AS FLIGHTS
+FROM FLIGHT as F join LINE as L on F.id_line = L.id_line 
+WHERE ((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line)) = 0;
