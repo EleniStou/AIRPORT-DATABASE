@@ -35,8 +35,23 @@ FROM FLIGHT as F join LINE as L on F.id_line = L.id_line  and delay <> 0
 join ARRIVAL as AR on L.id_line = AR.id_line
 join AIRPORT as A on AR.id_airport = A.id_airport;
 
+--4.Εμφάνιση πτήσης μέγιστης καθυστέρησης
+--(id πτήσης , καθυστέρηση σε λεπτά)
+SELECT F.id_flight,max(((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line))) as delay 
+FROM FLIGHT as F join LINE as L on F.id_line = L.id_line ;
+--ΜΠορεί να χωριστεί σε προορισμό και άφιξη ώστε να εμφανίζεται και η αντίστοιχη χώρα
+--ΠΡΟΟΡΙΣΜΟΣ
+SELECT F.id_flight,A.country,max(((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line))) as delay 
+FROM FLIGHT as F join LINE as L on F.id_line = L.id_line 
+join DEPARTURE as D on L.id_line = D.id_line
+join AIRPORT as A on D.id_airport = A.id_airport;
+--ΑΦΙΞΗ
+SELECT F.id_flight,A.country,max(((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line))) as delay 
+FROM FLIGHT as F join LINE as L on F.id_line = L.id_line 
+join ARRIVAL as AR on L.id_line = AR.id_line
+join AIRPORT as A on AR.id_airport = A.id_airport;
 
---4.Εμφάνιση στοιχείων αεροπορικών εταιριών
+--5.Εμφάνιση στοιχείων αεροπορικών εταιριών
 --(id,όνομα,email,χώρα,πόλη,web,τηλέφωνο,check-in)
 SELECT DISTINCT A.id_airline ,name_airline,country,town,email,web,phone,number
 FROM AIRLINE AS A JOIN CHECKIN AS C ON A.id_airline = C.id_airline; 
