@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "LINE"(
     "name_airplane" varchar(20) NOT NULL,
     "seats" integer NOT NULL,
     "baggage" integer NOT NULL,
-    "id_airline" integer NOT NULL,
+    "id_airline" varchar(15) NOT NULL,
     "name_category" varchar(30) NOT NULL,
     PRIMARY KEY("id_airplane"),
     CONSTRAINT "airplane_category_FK" FOREIGN KEY ("name_category") REFERENCES "CATEGORY" ("name_category") ON DELETE CASCADE ON UPDATE CASCADE,
