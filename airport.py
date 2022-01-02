@@ -72,6 +72,86 @@ def get_departures(y):
         print(e)
         return 0
 
+def get_info_airline(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT A.id_airline ,name_airline,country,town,email,web,phone\
+                        FROM AIRLINE AS A JOIN AIRPLANE AS AI ON A.id_airline = AI.id_airline\
+                        JOIN FLIGHT AS F ON AI.id_airplane = F.id_airplane\
+                        WHERE F.id_flight = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_info_airplane(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT name_airplane,seats,baggage,id_airline,name_category\
+                        FROM FLIGHT AS F JOIN AIRPLANE AS A ON F.id_airplane = A.id_airplane\
+                        WHERE F.id_flight = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_info_arrival(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT name_airport,country,town\
+                        FROM FLIGHT AS F JOIN LINE AS L ON F.id_line = L.id_line\
+                        JOIN ARRIVAL AS A1 ON L.id_line = A1.id_line\
+                        JOIN AIRPORT AS A2 ON A1.id_airport = A2.id_airport\
+                        WHERE F.id_flight = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_info_departure(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT name_airport,country,town\
+                        FROM FLIGHT AS F JOIN LINE AS L ON F.id_line = L.id_line\
+                        JOIN DEPARTURE AS D ON L.id_line = D.id_line\
+                        JOIN AIRPORT AS A2 ON D.id_airport = A2.id_airport\
+                        WHERE F.id_flight = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_delay(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT ((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line)) as delay \
+                        FROM FLIGHT as F join LINE as L on F.id_line = L.id_line  \
+                        WHERE F.id_flight = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
 
 if __name__ == '__main__':
     while True:
@@ -85,12 +165,45 @@ if __name__ == '__main__':
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
             l = ["Flight no.","Airline ", "Airplane" , "From", "Time_Scheduled"," Time_expected"]
-            print("-----------------------------------------------------------------------------------------------")
+            print("-------------------------------------------------------------------------------------------------------------------")
             print('{:<19s}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
-            print("-----------------------------------------------------------------------------------------------")
+            print("-------------------------------------------------------------------------------------------------------------------")
             for row in get_arrivals(y):
                 print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+            z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης αλλιώς enter: ")
+            z2 = z 
+            while z != "":
+                z = input("Πάτα 1) για πληροφορίες αεροπορικής εταιρίας,      \n 2) για πληροφορίες του αεροπλάνου,      \n 3) για πληροφορίες του τόπου άφιξης και      \n 4) για υπολογισμό καθυστέρησης της πτήσης αλλιώς enter: ")
+                if z == "1":
+                    l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    for row in get_info_airline(z2):
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                elif z == "2":
+                    l = ["Name","Seats", "Baggage" , "Airline", "Category"]
+                    print("---------------------------------------------------------------------------------------------------------------")
+                    print('{:<18s}{:<19s}{:<21s}{:<21s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4]))
+                    print("---------------------------------------------------------------------------------------------------------------")
+                    for row in get_info_airplane(z2):
+                        print('{:<18s}{:<19d}{:<21d}{:<21s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4]))
+                elif z == "3":
+                    l = ["Name of Airport","Country", "Town" ]
+                    print("---------------------------------------------------------------------------------")
+                    print('{:<30s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
+                    print("---------------------------------------------------------------------------------")
+                    for row in get_info_arrival(z2):
+                        print('{:<30s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
+                elif z == "4":
+                    l = ["Delay(minutes)" ]
+                    print("----------------")
+                    print('{:<25s}'.format(l[0]))
+                    print("----------------")
+                    for row in get_delay(z2):
+                        print('{:<25d}'.format(row[0]))
 
+                 
         elif x == "d":
             print("--------------")
             print("Departure Date")
@@ -100,10 +213,42 @@ if __name__ == '__main__':
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
             l = ["Flight no.","Airline ", "Airplane" , "To", "Time_Scheduled"," Time_expected"]
-            print("-----------------------------------------------------------------------------------------------")
+            print("-------------------------------------------------------------------------------------------------------------------")
             print('{:<19s}{:<21s}{:<20s}{:<16s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
-            print("-----------------------------------------------------------------------------------------------")
+            print("-------------------------------------------------------------------------------------------------------------------")
             for row in get_departures(y):
                 print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+            z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης: ")
+            z2 = z 
+            while z != "":
+                z = input("Πάτα 1) για πληροφορίες αεροπορικής εταιρίας,      \n 2) για πληροφορίες του αεροπλάνου,      \n 3) για πληροφορίες του τόπου προορισμού και      \n 4) για υπολογισμό καθυστέρησης της πτήσης αλλιώς enter: ")
+                if z == "1":
+                    l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    for row in get_info_airline(z2):
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                elif z == "2":
+                    l = ["Name","Seats", "Baggage" , "Airline", "Category"]
+                    print("---------------------------------------------------------------------------------------------------------------")
+                    print('{:<18s}{:<19s}{:<21s}{:<21s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4]))
+                    print("---------------------------------------------------------------------------------------------------------------")
+                    for row in get_info_airplane(z2):
+                        print('{:<18s}{:<19d}{:<21d}{:<21s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4]))
+                elif z == "3":
+                    l = ["Name of Airport","Country", "Town" ]
+                    print("---------------------------------------------------------------------------------")
+                    print('{:<30s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
+                    print("---------------------------------------------------------------------------------")
+                    for row in get_info_departure(z2):
+                        print('{:<30s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
+                elif z == "4":
+                    l = ["Delay(minutes)" ]
+                    print("----------------")
+                    print('{:<25s}'.format(l[0]))
+                    print("----------------")
+                    for row in get_delay(z2):
+                        print('{:<25d}'.format(row[0]))
         else:
             break
