@@ -152,10 +152,25 @@ def get_delay(z2):
         print(e)
         return 0
 
+def get_flight_plan(y):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT day_line,time_line,country,town \
+                        FROM LINE AS L JOIN ARRIVAL AS A1 ON L.id_line = A1.id_line \
+                        JOIN AIRPORT AS A2 ON A1.id_airport = A2.id_airport \
+                        WHERE country = ?",(y,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
 
 if __name__ == '__main__':
     while True:
-        x = input("Για αφίξεις πάτα a, για αποχωρήσεις πάτα d αλλιώς enter: ")
+        x = input("Για αφίξεις πάτα a, για αποχωρήσεις πάτα d, για σχέδιο πτήσης πάτα f αλλιώς enter: ")
         if x == "a":
             print("------------")
             print("Arrival Date")
@@ -250,5 +265,14 @@ if __name__ == '__main__':
                     print("----------------")
                     for row in get_delay(z2):
                         print('{:<25d}'.format(row[0]))
+
+        elif x == "f":
+            y = input("Διάλεξε χώρα που θες να ταξιδέψεις: ")
+            l = ["Day","Time_Scheduled","Country", "Town" ]
+            print("---------------------------------------------------------------------------------")
+            print('{:<18s}{:<22s}{:<18s}{:<18s}'.format(l[0],l[1],l[2],l[3]))
+            print("---------------------------------------------------------------------------------")
+            for row in get_flight_plan(y):
+                print('{:<18s}{:<22s}{:<18s}{:<18s}'.format(row[0],row[1],row[2],row[3]))
         else:
             break
