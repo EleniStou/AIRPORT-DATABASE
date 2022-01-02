@@ -41,7 +41,7 @@ def get_arrivals(y):
         conn = lite.connect(db)
         with conn:
             cur = conn.cursor()
-            cur.execute("SELECT AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
+            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
                         FROM ARRIVAL AS AR JOIN LINE AS L ON AR.id_line = L.id_line\
                         JOIN FLIGHT AS F ON L.id_line = F.id_line\
                         JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane\
@@ -59,7 +59,7 @@ def get_departures(y):
         conn = lite.connect(db)
         with conn:
             cur = conn.cursor()
-            cur.execute("SELECT AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
+            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
                         FROM DEPARTURE AS D JOIN LINE AS L ON D.id_line = L.id_line\
                         JOIN FLIGHT AS F ON L.id_line = F.id_line\
                         JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane\
@@ -84,12 +84,12 @@ if __name__ == '__main__':
                 print(row[0])
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
-            l = ["Airline ", "Airplane" , "From", "Time_Scheduled"," Time_expected"]
+            l = ["Flight no.","Airline ", "Airplane" , "From", "Time_Scheduled"," Time_expected"]
             print("-----------------------------------------------------------------------------------------------")
-            print('{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4]))
+            print('{:<19s}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
             print("-----------------------------------------------------------------------------------------------")
             for row in get_arrivals(y):
-                print('{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4]))
+                print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
 
         elif x == "d":
             print("--------------")
@@ -99,11 +99,11 @@ if __name__ == '__main__':
                 print(row[0])
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
-            l = ["Airline ", "Airplane" , "To", "Time_Scheduled"," Time_expected"]
+            l = ["Flight no.","Airline ", "Airplane" , "To", "Time_Scheduled"," Time_expected"]
             print("-----------------------------------------------------------------------------------------------")
-            print('{:<21s}{:<20s}{:<16s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4]))
+            print('{:<19s}{:<21s}{:<20s}{:<16s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
             print("-----------------------------------------------------------------------------------------------")
             for row in get_departures(y):
-                print('{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4]))
+                print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
         else:
             break
