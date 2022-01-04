@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS "LINE"(
     "name_airplane" varchar(20) NOT NULL,
     "seats" integer NOT NULL,
     "baggage" integer NOT NULL,
-    "id_airline" integer NOT NULL,
+    "id_airline" varchar(15) NOT NULL,
     "name_category" varchar(30) NOT NULL,
     PRIMARY KEY("id_airplane"),
     CONSTRAINT "airplane_category_FK" FOREIGN KEY ("name_category") REFERENCES "CATEGORY" ("name_category") ON DELETE CASCADE ON UPDATE CASCADE,
@@ -55,12 +55,14 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
  --CHECK-IN BOOTH
  DROP TABLE IF EXISTS "CHECKIN";
  CREATE TABLE IF NOT EXISTS "CHECKIN"(
-    "number" integer NOT NULL,
-    "open_date" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-    "close_date" datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+    "number" varchar(10) NOT NULL,
+    "open_time" time NOT NULL DEFAULT '00:00:00',
+    "close_time" datetime NOT NULL DEFAULT '00:00:00',
     "id_airline" integer NOT NULL,
-    PRIMARY KEY("number"),
+    "id_line" integer NOT NULL,
+    PRIMARY KEY("id_line"),
     CONSTRAINT "checkin_airline_FK" FOREIGN KEY ("id_airline") REFERENCES "AIRLINE" ("id_airline") ON DELETE CASCADE ON UPDATE CASCADE
+    CONSTRAINT "checkin_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line")  ON DELETE CASCADE ON UPDATE CASCADE
  );
 
  --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
@@ -121,7 +123,7 @@ CREATE TABLE IF NOT EXISTS "MID"(
     PRIMARY KEY("id_mid"),
     CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "mid_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
- ); 
+ );  
 
 
 --ΔΕΔΟΜΕΝΑ ΤΕΡΜΑΤΙΚΟΥ ΣΤΑΘΜΟΥ
@@ -327,7 +329,7 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (66319, 'Leonardo da Vinci International Airport', 'ΙΤΑΛΙΑ', 'ΡΩΜΗ'),
  (80956, 'Istanbul Airport', 'ΤΟΥΡΚΙΑ', 'ΚΩΝΣΤΑΝΤΙΝΟΥΠΟΛΗ'),
  (99362, 'Dallas/Fort Worth International Airport', 'ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ', 'ΤΕΞΑΣ'),
- (99654, 'Amsterdam Airport Schiphol','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ')
+ (99654, 'Amsterdam Airport Schiphol','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ'),
  (99752, 'Rotterdam The Hague Airport', 'ΟΛΛΑΝΔΙΑ', 'ΡΟΤΕΡΝΤΑΜ');
 
 -- ΔΕΔΟΜΕΝΑ ΠΤΗΣΗΣ
@@ -396,7 +398,7 @@ INSERT INTO "FLIGHT"("id_flight","id_airplane","date_flight","id_line","name_ter
 (155, 1070, '2021-01-10 17:40:00', 055, 'Terminal A'),
 (156, 1080, '2021-01-10 19:50:00', 056, 'Terminal E'),
 (157, 1065, '2021-01-10 20:00:00', 057, 'Terminal F'),
-(158, 1093, '2021-01-10 22:40:00', 058, 'Terminal D')
+(158, 1093, '2021-01-10 22:40:00', 058, 'Terminal D'),
 (159, 1065, '2021-01-10 23:10:00', 059, 'Terminal F'),
 (160, 1093, '2021-01-10 23:15:00', 060, 'Terminal D'),
 -------------ΚΥΡΙΑΚΗ--------------------------
@@ -407,7 +409,7 @@ INSERT INTO "FLIGHT"("id_flight","id_airplane","date_flight","id_line","name_ter
 (165, 1070, '2021-01-11 14:30:00', 065, 'Terminal A'),
 (166, 1080, '2021-01-11 17:00:00', 066, 'Terminal E'),
 (167, 1065, '2021-01-11 19:10:00', 067, 'Terminal F'),
-(168, 1093, '2021-01-11 20:20:00', 068, 'Terminal D')
+(168, 1093, '2021-01-11 20:20:00', 068, 'Terminal D'),
 (169, 1065, '2021-01-11 21:30:00', 069, 'Terminal F'),
 (170, 1093, '2021-01-11 23:35:00', 070, 'Terminal D'),
 (171, 1093, '2021-01-11 23:50:00', 071, 'Terminal D');
@@ -469,7 +471,7 @@ INSERT INTO "LINE" ("id_line", "day_line","time_line") VALUES
 (047, 'ΠΑΡΑΣΚΕΥΗ', '22:50:00'),--ΟΛΛΑΝΔΙΑ/ΡΟΤΕΡΝΤΑΜ
 (048, 'ΠΑΡΑΣΚΕΥΗ', '23:10:00'),--ΣΟΥΗΔΙΑ/ΚΙΡΟΥΝΑ
 (049, 'ΠΑΡΑΣΚΕΥΗ', '23:40:00'),--ΣΟΥΗΔΙΑ/ΣΤΟΚΧΟΛΜΗ
-(050, 'ΠΑΡΑΣΚΕΥΗ', '23:50:00')--ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ/ΣΙΚΑΓΟ
+(050, 'ΠΑΡΑΣΚΕΥΗ', '23:50:00'),--ΗΝΩΜΕΝΕΣ ΠΟΛΙΤΕΙΕΣ/ΣΙΚΑΓΟ
 ---------------------ΣΑΒΒΑΤΟ-------------------------------------
 (051, 'ΣΑΒΒΑΤΟ', '07:25:00'),--ΓΕΡΜΑΝΙΑ/ΝΤΙΣΕΛΝΤΟΡΦ
 (052, 'ΣΑΒΒΑΤΟ', '10:45:00'),--ΙΣΠΑΝΙΑ/ΜΑΔΡΙΤΗ
@@ -496,6 +498,7 @@ INSERT INTO "LINE" ("id_line", "day_line","time_line") VALUES
 
 
 --ΔΕΔΟΜΕΝΑ DEPARTURE
+INSERT INTO "DEPARTURE"("id_departure","id_line","id_airport") VALUES
 (2000,000,03527), --ΑΘΗΝΑ
 (2001,001,58769), --ΠΑΡΜΑ
 (2002,002,25904), --ΚΙΕΒΟ 
@@ -575,7 +578,7 @@ INSERT INTO "ARRIVAL"("id_arrival","id_line","id_airport") VALUES
 --ΔΕΔΟΜΕΝΑ ΕΝΔΙΑΜΕΣΟΥ ΣΤΑΘΜΟΥ
 /* Έχω κάνει την παραδοχή ότι το αεροδρόμιο μας είναι σε μια πολιτεία των ΗΠΑ, έστω LA, συνεπώς σε κάποιες πτήσεις θα κάνει ενδιάμεση στάση σε άλλα αεροδρόμια.
 Εδώ στο id_airport έχω βάλει το id του αεροδρομίου στο οποίο αντιστοιχεί η ενδιάμεση στάση. */
-INSERT INTO "MID"("id_arrival","id_line","id_airport") VALUES
+INSERT INTO "MID"("id_mid","id_line","id_airport") VALUES
 -----ΑΝΑΧΩΡΗΣΕΙΣ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ
 (4001, 000, 34869), --ΕΛΛΑΔΑ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ ΝΤΙΣΕΛΝΤΟΡΦ
 (4002, 001, 49028),-- ΠΑΡΜΑ ΜΕ ΕΝΔΙΑΜΕΣΗ ΣΤΑΣΗ ΠΑΡΙΣΙ
@@ -611,4 +614,4 @@ INSERT INTO "MID"("id_arrival","id_line","id_airport") VALUES
  ('60-65','05:00:00','08:00:00','TUN',013),--ΤΥΝΙΔΑ
  ('30-35','08:30:00','11:30:00','ITA',014),--ΡΩΜΗ
  ('66-71','11:10:00','14:10:00','AEG',015),--ΘΕΣΣΑΛΟΝΙΚΗ
- ('72-77','14:40:00','17:40:00','UNI',017),--ΤΕΞΑΣ
+ ('72-77','14:40:00','17:40:00','UNI',017);--ΤΕΞΑΣ
