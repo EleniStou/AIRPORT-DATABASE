@@ -157,10 +157,57 @@ def get_flight_plan(y):
         conn = lite.connect(db)
         with conn:
             cur = conn.cursor()
-            cur.execute("SELECT day_line,time_line,country,town \
-                        FROM LINE AS L JOIN ARRIVAL AS A1 ON L.id_line = A1.id_line \
-                        JOIN AIRPORT AS A2 ON A1.id_airport = A2.id_airport \
+            cur.execute("SELECT L.id_line,day_line,time_line,country,town \
+                        FROM LINE AS L JOIN DEPARTURE AS D ON L.id_line = D.id_line \
+                        JOIN AIRPORT AS A2 ON D.id_airport = A2.id_airport \
                         WHERE country = ?",(y,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_times_checkin(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT open_time, close_time \
+                        FROM CHECKIN AS C JOIN LINE AS L ON C.id_line = L.id_line \
+                        WHERE L.id_line = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_info_line_airline(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT A.id_airline ,name_airline,country,town,email,web,phone \
+                        FROM LINE AS L JOIN CHECKIN AS C ON L.id_line = C.id_line \
+                        JOIN AIRLINE AS A ON A.id_airline = C.id_airline \
+                        WHERE L.id_line = ?",(z2,))
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
+def get_info_line_departure(z2):
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT name_airport,country,town \
+                        FROM AIRPORT AS A JOIN DEPARTURE AS D ON A.id_airport = D.id_airport \
+                        JOIN LINE AS L ON D.id_line = L.id_line \
+                        WHERE L.id_line = ?",(z2,))
 
             rows = cur.fetchall()
             return rows
@@ -181,10 +228,10 @@ if __name__ == '__main__':
             validate(y)
             l = ["Flight no.","Airline ", "Airplane" , "From", "Time_Scheduled"," Time_expected"]
             print("-------------------------------------------------------------------------------------------------------------------")
-            print('{:<19s}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
+            print('{:<19s}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
             print("-------------------------------------------------------------------------------------------------------------------")
             for row in get_arrivals(y):
-                print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+                print('{:<19d}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
             z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης αλλιώς enter: ")
             z2 = z 
             while z != "":
@@ -192,10 +239,10 @@ if __name__ == '__main__':
                 if z == "1":
                     l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
                     print("-----------------------------------------------------------------------------------------------------------------------------------------------")
-                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
                     print("-----------------------------------------------------------------------------------------------------------------------------------------------")
                     for row in get_info_airline(z2):
-                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
                 elif z == "2":
                     l = ["Name","Seats", "Baggage" , "Airline", "Category"]
                     print("---------------------------------------------------------------------------------------------------------------")
@@ -206,18 +253,18 @@ if __name__ == '__main__':
                 elif z == "3":
                     l = ["Name of Airport","Country", "Town" ]
                     print("---------------------------------------------------------------------------------")
-                    print('{:<30s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
+                    print('{:<52s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
                     print("---------------------------------------------------------------------------------")
                     for row in get_info_arrival(z2):
-                        print('{:<30s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
+                        print('{:<52s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
                 elif z == "4":
                     l = ["Delay(minutes)" ]
                     print("----------------")
-                    print('{:<25s}'.format(l[0]))
+                    print('{:<16s}'.format(l[0]))
                     print("----------------")
                     for row in get_delay(z2):
-                        print('{:<25d}'.format(row[0]))
-
+                        print('{:<16d}'.format(row[0]))
+            
                  
         elif x == "d":
             print("--------------")
@@ -229,10 +276,10 @@ if __name__ == '__main__':
             validate(y)
             l = ["Flight no.","Airline ", "Airplane" , "To", "Time_Scheduled"," Time_expected"]
             print("-------------------------------------------------------------------------------------------------------------------")
-            print('{:<19s}{:<21s}{:<20s}{:<16s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
+            print('{:<19s}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
             print("-------------------------------------------------------------------------------------------------------------------")
             for row in get_departures(y):
-                print('{:<19d}{:<21s}{:<20s}{:<18s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+                print('{:<19d}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
             z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης: ")
             z2 = z 
             while z != "":
@@ -240,10 +287,10 @@ if __name__ == '__main__':
                 if z == "1":
                     l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
                     print("-----------------------------------------------------------------------------------------------------------------------------------------------")
-                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
                     print("-----------------------------------------------------------------------------------------------------------------------------------------------")
                     for row in get_info_airline(z2):
-                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<19s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
                 elif z == "2":
                     l = ["Name","Seats", "Baggage" , "Airline", "Category"]
                     print("---------------------------------------------------------------------------------------------------------------")
@@ -254,10 +301,10 @@ if __name__ == '__main__':
                 elif z == "3":
                     l = ["Name of Airport","Country", "Town" ]
                     print("---------------------------------------------------------------------------------")
-                    print('{:<30s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
+                    print('{:<52s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
                     print("---------------------------------------------------------------------------------")
                     for row in get_info_departure(z2):
-                        print('{:<30s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
+                        print('{:<52s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
                 elif z == "4":
                     l = ["Delay(minutes)" ]
                     print("----------------")
@@ -268,11 +315,37 @@ if __name__ == '__main__':
 
         elif x == "f":
             y = input("Διάλεξε χώρα που θες να ταξιδέψεις: ")
-            l = ["Day","Time_Scheduled","Country", "Town" ]
+            l = ["Line no.","Day","Time_Scheduled","Country", "Town" ]
             print("---------------------------------------------------------------------------------")
-            print('{:<18s}{:<22s}{:<18s}{:<18s}'.format(l[0],l[1],l[2],l[3]))
+            print('{:<18s}{:<18s}{:<22s}{:<18s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4]))
             print("---------------------------------------------------------------------------------")
             for row in get_flight_plan(y):
-                print('{:<18s}{:<22s}{:<18s}{:<18s}'.format(row[0],row[1],row[2],row[3]))
+                print('{:<18d}{:<18s}{:<22s}{:<18s}{:<18s}'.format(row[0],row[1],row[2],row[3],row[4]))
+            z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό γραμμής: ")
+            z2 = z 
+            while z != "":
+                z = input("Πάτα 1) για πληροφορίες check-in,      \n 2) για πληροφορίες αεροπορικής εταιρίας,      \n 3) για πληροφορίες του τόπου προορισμού  αλλιώς enter: ")
+                if z == "1":
+                    l = ["Time-on CHECK-IN","Time-off CHECK-IN" ]
+                    print("-------------------------------------")
+                    print('{:<18s}{:<18s}'.format(l[0],l[1]))
+                    print("-------------------------------------")
+                    for row in get_times_checkin(z2):
+                        print('{:<18s}{:<18s}'.format(row[0],row[1]))    
+                elif z == "2":
+                    l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    for row in get_info_line_airline(z2):
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6])) 
+                elif z == "3":
+                    l = ["Name of Airport","Country", "Town" ]
+                    print("---------------------------------------------------------------------------------")
+                    print('{:<52s}{:<18s}{:<18s}'.format(l[0],l[1],l[2]))
+                    print("---------------------------------------------------------------------------------")
+                    for row in get_info_line_departure(z2):
+                        print('{:<52s}{:<18s}{:<18s}'.format(row[0],row[1],row[2]))
+                         
         else:
             break
