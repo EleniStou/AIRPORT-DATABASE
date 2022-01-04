@@ -496,6 +496,7 @@ INSERT INTO "LINE" ("id_line", "day_line","time_line") VALUES
 
 
 --ΔΕΔΟΜΕΝΑ DEPARTURE
+INSERT INTO "DEPARTURE"("id_departure","id_line","id_airport") VALUES
 (2000,000,03527), --ΑΘΗΝΑ
 (2001,001,58769), --ΠΑΡΜΑ
 (2002,002,25904), --ΚΙΕΒΟ 
