@@ -41,11 +41,18 @@ def get_arrivals(y):
         conn = lite.connect(db)
         with conn:
             cur = conn.cursor()
-            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
-                        FROM ARRIVAL AS AR JOIN LINE AS L ON AR.id_line = L.id_line\
-                        JOIN FLIGHT AS F ON L.id_line = F.id_line\
-                        JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane\
-                        JOIN AIRLINE AS AL ON AI.id_airline = AL.id_airline\
+            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,L2.time_line,time(F.date_flight),AL.country,\
+                        CASE \
+	                        WHEN A2.country IS NULL THEN  '-'\
+	                        ELSE A2.country\
+                        END as 'Via'\
+                        FROM AIRLINE AS AL JOIN AIRPLANE AS AI ON AI.id_airline = AL.id_airline\
+                        JOIN FLIGHT AS F ON F.id_airplane = AI.id_airplane\
+                        JOIN LINE AS L2 ON L2.id_line = F.id_line\
+                        JOIN ARRIVAL AS A ON A.id_line = L2.id_line\
+                        JOIN LINE AS L1 ON A.id_line = L1.id_line\
+                        LEFT JOIN MID AS M ON L1.id_line = M.id_line\
+                        LEFT JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport\
                         WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d',?)",(y,))
 
             rows = cur.fetchall()
@@ -59,12 +66,19 @@ def get_departures(y):
         conn = lite.connect(db)
         with conn:
             cur = conn.cursor()
-            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)\
-                        FROM DEPARTURE AS D JOIN LINE AS L ON D.id_line = L.id_line\
-                        JOIN FLIGHT AS F ON L.id_line = F.id_line\
-                        JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane\
-                        JOIN AIRLINE AS AL ON AI.id_airline = AL.id_airline\
-                        WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d',?)",(y,))
+            cur.execute("SELECT F.id_flight,AL.name_airline,AI.name_airplane,L2.time_line,time(F.date_flight),AL.country,\
+                        CASE\
+                        	WHEN A2.country IS NULL THEN  '-'\
+                        	ELSE A2.country\
+                        END as 'Via'\
+                        FROM AIRLINE AS AL JOIN AIRPLANE AS AI ON AI.id_airline = AL.id_airline\
+                        JOIN FLIGHT AS F ON F.id_airplane = AI.id_airplane\
+                        JOIN LINE AS L2 ON L2.id_line = F.id_line\
+                        JOIN DEPARTURE AS D ON D.id_line = L2.id_line\
+                        JOIN LINE AS L1 ON D.id_line = L1.id_line \
+                        LEFT JOIN MID AS M ON L1.id_line = M.id_line\
+                        LEFT JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport\
+                        WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d',?)",(y,))\
 
             rows = cur.fetchall()
             return rows
@@ -226,12 +240,12 @@ if __name__ == '__main__':
                 print(row[0])
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
-            l = ["Flight no.","Airline ", "Airplane" , "From", "Time_Scheduled"," Time_expected"]
-            print("-------------------------------------------------------------------------------------------------------------------")
-            print('{:<19s}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
-            print("-------------------------------------------------------------------------------------------------------------------")
+            l = ["Flight no.","Airline ", "Airplane" , "Time_Scheduled"," Time_expected", "From",'Via']
+            print("------------------------------------------------------------------------------------------------------------------------------------------------------")
+            print('{:<19s}{:<31s}{:<20s}{:<28s}{:<22s}{:<22s}{:<28s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+            print("------------------------------------------------------------------------------------------------------------------------------------------------------")
             for row in get_arrivals(y):
-                print('{:<19d}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+                print('{:<19d}{:<31s}{:<20s}{:<22s}{:<22s}{:<28s}{:<28s}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
             z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης αλλιώς enter: ")
             z2 = z 
             while z != "":
@@ -274,12 +288,12 @@ if __name__ == '__main__':
                 print(row[0])
             y = input("Διάλεξε μία από τις παραπάνω διαθέσιμες ημερομηνίες: ")
             validate(y)
-            l = ["Flight no.","Airline ", "Airplane" , "To", "Time_Scheduled"," Time_expected"]
-            print("-------------------------------------------------------------------------------------------------------------------")
-            print('{:<19s}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(l[0],l[1],l[2],l[3],l[4],l[5]))
-            print("-------------------------------------------------------------------------------------------------------------------")
+            l = ["Flight no.","Airline ", "Airplane" , "Time_Scheduled"," Time_expected", "To","Via"]
+            print("-------------------------------------------------------------------------------------------------------------------------------------------------------")
+            print('{:<19s}{:<31s}{:<20s}{:<22s}{:<22s}{:<28s}{:<28s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+            print("-------------------------------------------------------------------------------------------------------------------------------------------------------")
             for row in get_departures(y):
-                print('{:<19d}{:<21s}{:<20s}{:<28s}{:<22s}{:<22s}'.format(row[0],row[1],row[2],row[3],row[4],row[5]))
+                print('{:<19d}{:<31s}{:<20s}{:<22s}{:<22s}{:<28s}{:<28s}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
             z = input("Για περισσότερες πληροφορίες πληκτρολόγησε αριθμό πτήσης: ")
             z2 = z 
             while z != "":
@@ -334,11 +348,11 @@ if __name__ == '__main__':
                         print('{:<18s}{:<18s}'.format(row[0],row[1]))    
                 elif z == "2":
                     l = ["Airline","Name ", "Country" , "Town", "email"," web","phone"]
-                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
-                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
-                    print("-----------------------------------------------------------------------------------------------------------------------------------------------")
+                    print("----------------------------------------------------------------------------------------------------------------------------------------------------")
+                    print('{:<21s}{:<18s}{:<21s}{:<18s}{:<35s}{:<25s}{:<18s}'.format(l[0],l[1],l[2],l[3],l[4],l[5],l[6]))
+                    print("----------------------------------------------------------------------------------------------------------------------------------------------------")
                     for row in get_info_line_airline(z2):
-                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<25s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6])) 
+                        print('{:<21s}{:<18s}{:<21s}{:<18s}{:<35s}{:<25s}{:<18d}'.format(row[0],row[1],row[2],row[3],row[4],row[5],row[6])) 
                 elif z == "3":
                     l = ["Name of Airport","Country", "Town" ]
                     print("---------------------------------------------------------------------------------")
