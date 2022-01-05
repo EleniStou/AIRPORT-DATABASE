@@ -316,7 +316,7 @@ INSERT INTO "CATEGORY" ("name_category") VALUES ('ΕΜΠΟΡΙΚΗΣ ΜΕΤΑΦ�
  (33745, 'Sydney Airport', 'ΑΥΣΤΡΑΛΙΑ', 'ΣΙΔΝΕΪ'),
  (34869, 'DUSSELDORF AIRPORT', 'ΓΕΡΜΑΝΙΑ','ΝΤΙΣΕΛΝΤΟΡΦ'),
  (35690, 'LISBON AIRPORT', 'ΛΙΣΑΒΟΝΑ', 'ΠΟΡΤΟΓΑΛΙΑ'),
- (36490, 'Amsterdam Airport Schiphol', 'ΟΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
+ (36490, 'Amsterdam Airport Schiphol', 'ΟΛΛΑΝΔΙΑ', 'ΑΜΣΤΕΡΝΤΑΜ'),
  (37890, 'Luxembourg Airport', 'ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ'),
  (38765, 'Tunis–Carthage International Airport', 'ΤΥΝΗΣΙΑ','ΤΥΝΙΔΑ'),
  (45970, 'BARCELONA AIRPORT', 'ΙΣΠΑΝΙΑ', 'ΒΑΡΚΕΛΩΝΗ'),
