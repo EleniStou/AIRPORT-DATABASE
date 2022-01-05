@@ -182,6 +182,22 @@ def get_delay(z2):
         print(e)
         return 0
 
+#Συνάρτηση που επιστέφει τις χώρες για τις οποίες υπάρχει δρομολόγιο από το αεροδρόμιο μας
+def get_country():
+    try:
+        conn = lite.connect(db)
+        with conn:
+            cur = conn.cursor()
+            cur.execute("SELECT DISTINCT country\
+                        FROM AIRPORT\
+                        ORDER BY country")
+
+            rows = cur.fetchall()
+            return rows
+    except lite.Error as e:
+        print(e)
+        return 0
+
 #Συνάρτηση που επιστέφει ποιές μέρες υπάρχει προγραμματισμένο δρομολόγιο για συγκεκριμένη χώρα
 def get_flight_plan(y):
     try:
@@ -372,6 +388,13 @@ if __name__ == '__main__':
                     print()
 
         elif x == "f":
+            l = ["Country" ]
+            print("----------------")
+            print('{:<25s}'.format(l[0]))
+            print("----------------")
+            for row in get_country():
+                print('{:<25s}'.format(row[0]))
+            print()
             y = input("Διάλεξε χώρα που θες να ταξιδέψεις (κεφαλαίοι ελληνικοί χαρακτήρες): ")
             print()
             while not validcountry(y):
