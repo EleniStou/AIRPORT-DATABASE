@@ -36,8 +36,7 @@ def get_dates(x):
                         FROM {} AS AR JOIN LINE AS L ON AR.id_line = L.id_line\
                         JOIN FLIGHT AS F ON L.id_line = F.id_line\
                         JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane\
-                        JOIN AIRLINE AS AL ON AI.id_airline = AL.id_airline\
-                        ORDER BY strftime('%Y %m %d',F.date_flight)".format(table))
+                        JOIN AIRLINE AS AL ON AI.id_airline = AL.id_airline".format(table))
     
             rows = cur.fetchall()
             return rows
@@ -45,7 +44,7 @@ def get_dates(x):
         print(e)
         return 0
             
-#Συνάρτηση που επιστρέφει πληροφορίες για τις αφίξεις γνωρίζοντας την ημεομηνία της πτήσης 
+#Συνάρτηση που επιστρέφει πληροφορίες για τις αφίξεις γνωρίζοντας την ημερομηνία της πτήσης 
 def get_arrivals(y):
     try:
         conn = lite.connect(db)
@@ -71,7 +70,7 @@ def get_arrivals(y):
         print(e)
         return 0
 
-#Συνάρτηση που επιστρέφει πληροφορίες για τις αναχωρήσεις γνωρίζοντας την ημεομηνία της πτήσης 
+#Συνάρτηση που επιστρέφει πληροφορίες για τις αναχωρήσεις γνωρίζοντας την ημερομηνία της πτήσης 
 def get_departures(y):
     try:
         conn = lite.connect(db)
@@ -189,8 +188,7 @@ def get_country():
         with conn:
             cur = conn.cursor()
             cur.execute("SELECT DISTINCT country\
-                        FROM AIRPORT\
-                        ORDER BY country")
+                        FROM AIRPORT")
 
             rows = cur.fetchall()
             return rows
