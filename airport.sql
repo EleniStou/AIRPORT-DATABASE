@@ -12,6 +12,11 @@ CREATE TABLE IF NOT EXISTS "FLIGHT"(
     CONSTRAINT "flight_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "flight_terminal_FK" FOREIGN KEY ("name_terminal") REFERENCES "TERMINAL" ("name_terminal") ON DELETE CASCADE ON UPDATE CASCADE
 );
+--ΕΥΡΕΤΗΡΙΑ ΠΤΗΣΗΣ
+CREATE INDEX ind_flight1 ON "FLIGHT"("id_airplane");
+CREATE INDEX ind_flight2 ON "FLIGHT"("id_line");
+CREATE INDEX ind_flight3 ON "FLIGHT"("date_flight");
+
 --ΓΡΑΜΜΗ
 DROP TABLE IF EXISTS "LINE";
 CREATE TABLE IF NOT EXISTS "LINE"(
@@ -20,6 +25,9 @@ CREATE TABLE IF NOT EXISTS "LINE"(
     "time_line" time NOT NULL DEFAULT '00:00:00',
     PRIMARY KEY ("id_line")
  );
+--ΕΥΡΕΤΗΡΙΟ ΓΡΑΜΜΗΣ
+CREATE INDEX ind_line ON "LINE"("day_line");
+
 --ΑΕΡΟΠΛΑΝΟ
  DROP TABLE IF EXISTS "AIRPLANE";
  CREATE TABLE IF NOT EXISTS "AIRPLANE"(
@@ -33,12 +41,16 @@ CREATE TABLE IF NOT EXISTS "LINE"(
     CONSTRAINT "airplane_category_FK" FOREIGN KEY ("name_category") REFERENCES "CATEGORY" ("name_category") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "airplane_airline_FK" FOREIGN KEY ("id_airline") REFERENCES "AIRLINE" ("id_airline") ON DELETE CASCADE ON UPDATE CASCADE
  );
+--ΕΥΡΕΤΗΡΙΟ ΑΕΡΟΠΛΑΝΟΥ
+CREATE INDEX ind_airplane ON "AIRPLANE"("id_airline");
+
 --ΚΑΤΗΓΟΡΙΑ
  DROP TABLE IF EXISTS "CATEGORY";
  CREATE TABLE IF NOT EXISTS "CATEGORY"(
      "name_category" varchar(30) NOT NULL,
     PRIMARY KEY("name_category")
  );
+
 --ΑΕΡΟΠΟΡΙΚΗ ΕΤΑΙΡΙΑ
 DROP TABLE IF EXISTS "AIRLINE";
 CREATE TABLE IF NOT EXISTS "AIRLINE"(
@@ -52,9 +64,9 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
     PRIMARY KEY("id_airline")
 );
  
- --CHECK-IN BOOTH
- DROP TABLE IF EXISTS "CHECKIN";
- CREATE TABLE IF NOT EXISTS "CHECKIN"(
+--CHECK-IN BOOTH
+DROP TABLE IF EXISTS "CHECKIN";
+CREATE TABLE IF NOT EXISTS "CHECKIN"(
     "number" varchar(10) NOT NULL,
     "open_time" time NOT NULL DEFAULT '00:00:00',
     "close_time" datetime NOT NULL DEFAULT '00:00:00',
@@ -63,35 +75,40 @@ CREATE TABLE IF NOT EXISTS "AIRLINE"(
     PRIMARY KEY("id_line"),
     CONSTRAINT "checkin_airline_FK" FOREIGN KEY ("id_airline") REFERENCES "AIRLINE" ("id_airline") ON DELETE CASCADE ON UPDATE CASCADE
     CONSTRAINT "checkin_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line")  ON DELETE CASCADE ON UPDATE CASCADE
- );
+);
+--ΕΥΡΕΤΗΡΙΑ CHECK-IN BOOTH
+CREATE INDEX ind_checkin1 ON "CHECKIN"("id_airline");
+CREATE INDEX ind_checkin2 ON "CHECKIN"("id_line");
 
- --ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
- DROP TABLE IF EXISTS "TERMINAL";
- CREATE TABLE IF NOT EXISTS "TERMINAL"(
+--ΤΕΡΜΑΤΙΚΟΣ ΣΤΑΘΜΟΣ
+DROP TABLE IF EXISTS "TERMINAL";
+CREATE TABLE IF NOT EXISTS "TERMINAL"(
     "name_terminal" varchar(15) NOT NULL,
     PRIMARY KEY("name_terminal")
- );
+);
 
- --ΠΥΛΗ
- DROP TABLE IF EXISTS "GATE";
- CREATE TABLE IF NOT EXISTS "GATE"(
+--ΠΥΛΗ
+DROP TABLE IF EXISTS "GATE";
+CREATE TABLE IF NOT EXISTS "GATE"(
     "name_gate" varchar(15) NOT NULL,
     "name_terminal" varchar(15) NOT NULL,
     PRIMARY KEY("name_gate"),
     CONSTRAINT "gate_terminal_FK" FOREIGN KEY ("name_terminal") REFERENCES "TERMINAL" ("name_terminal") ON DELETE CASCADE ON UPDATE CASCADE
- );
+);
 
- --ΑΕΡΟΔΡΟΜΙΟ
- DROP TABLE IF EXISTS "AIRPORT";
- CREATE TABLE IF NOT EXISTS "AIRPORT"(
+--ΑΕΡΟΔΡΟΜΙΟ
+DROP TABLE IF EXISTS "AIRPORT";
+CREATE TABLE IF NOT EXISTS "AIRPORT"(
     "id_airport" integer NOT NULL,
     "name_airport" varchar(50) NOT NULL,
     "country" varchar(20) NOT NULL,
     "town" varchar(20) NOT NULL,
     PRIMARY KEY("id_airport")
- );
+);
+--ΕΥΡΕΤΗΡΙΟ ΑΕΡΟΔΡΟΜΙΟΥ
+CREATE INDEX ind_airport ON "AIRPORT"("country");
 
- --ΑΦΙΞΗ  
+--ΑΦΙΞΗ  
 DROP TABLE IF EXISTS "ARRIVAL";
 CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     "id_arrival" integer NOT NULL,
@@ -100,7 +117,10 @@ CREATE TABLE IF NOT EXISTS "ARRIVAL"(
     PRIMARY KEY("id_arrival"),
     CONSTRAINT "arrival_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "arrival_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
- ); 
+); 
+--ΕΥΡΕΤΗΡΙΑ ΑΦΙΞΗΣ
+CREATE INDEX ind_arrival1 ON "ARRIVAL"("id_airport");
+CREATE INDEX ind_arrival2 ON "ARRIVAL"("id_line"); 
 
 -- ΠΡΟΟΡΙΣΜΟΣ
 DROP TABLE IF EXISTS "DEPARTURE";
@@ -112,9 +132,11 @@ CREATE TABLE IF NOT EXISTS "DEPARTURE"(
     CONSTRAINT "departure_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "departure_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
  ); 
-
+--ΕΥΡΕΤΗΡΙΑ ΠΡΟΟΡΙΣΜΟΥ
+CREATE INDEX ind_departure1 ON "DEPARTURE"("id_airport");
+CREATE INDEX ind_departure2 ON "DEPARTURE"("id_line");
  
- --ΕΝΔΙΑΜΕΣΟΣ ΣΤΑΘΜΟΣ
+--ΕΝΔΙΑΜΕΣΟΣ ΣΤΑΘΜΟΣ
 DROP TABLE IF EXISTS "MID";
 CREATE TABLE IF NOT EXISTS "MID"(
     "id_mid" integer NOT NULL,
@@ -123,8 +145,10 @@ CREATE TABLE IF NOT EXISTS "MID"(
     PRIMARY KEY("id_mid"),
     CONSTRAINT "mid_airport_FK" FOREIGN KEY ("id_airport") REFERENCES "AIRPORT" ("id_airport") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "mid_line_FK" FOREIGN KEY ("id_line") REFERENCES "LINE" ("id_line") ON DELETE CASCADE ON UPDATE CASCADE
- );  
-
+);  
+--ΕΥΡΕΤΗΡΙΑ ΕΝΔΙΑΜΕΣΟΥ ΣΤΑΘΜΟΥ
+CREATE INDEX ind_mid1 ON "MID"("id_airport");
+CREATE INDEX ind_mid2 ON "MID"("id_line");
 
 --ΔΕΔΟΜΕΝΑ ΤΕΡΜΑΤΙΚΟΥ ΣΤΑΘΜΟΥ
 INSERT INTO "TERMINAL"("name_terminal") VALUES
