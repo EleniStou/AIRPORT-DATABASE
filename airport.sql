@@ -178,7 +178,7 @@ INSERT INTO "GATE"('name_gate','name_terminal') VALUES
  ('IBE','Iberia','contact@iberia.com','ΙΣΠΑΝΙΑ','ΜΑΔΡΙΤΗ','www.iberia.com','6950073874'),
  ('ITA','ITA Airways','BookingsChangesRefunds@itaspa.com','ΙΤΑΛΙΑ','ΡΩΜΗ','www.itaspa.com','8003618336'),
  ('KLM','KLM','contact@klm.com','ΟΛΛΑΝΔΙΑ','ΑΜΣΤΕΡΝΤΑΜ','www.klm.com','6929993770'),
- ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΕΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
+ ('LOT','LOT','service@lot.pl','ΠΟΛΩΝΙΑ','ΒΑΡΣΟΒΙΑ','www.lot.com','6915325324'),
  ('LUX','Luxair','group@luxairgroup.lu','ΛΟΥΞΕΜΒΟΥΡΓΟ','ΛΟΥΞΕΜΒΟΥΡΓΟ','www.luxair.lu','3522456123'),
  ('MAL','Malta MedAir','contact@malta.com','ΜΑΛΤΑ','ΒΑΛΕΤΑ','www.maltamedair.com','5621223355'),
  ('NOW','Norwegian','grupper@norwegian.no','ΝΟΡΒΗΓΙΑ','ΌΣΛΟ','www.norwegian.com','8005895000'),
