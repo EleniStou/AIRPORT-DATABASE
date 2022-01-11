@@ -51,7 +51,7 @@ CREATE INDEX ind_airplane ON "AIRPLANE"("id_airline");
     PRIMARY KEY("name_category")
  );
 
---ΑΕΡΟΠΟΡΙΚΗ ΕΤΑΙΡΙΑ
+--ΑΕΡΟΠΟΡΙΚΗ ΕΤΑΙΡΕΙΑ
 DROP TABLE IF EXISTS "AIRLINE";
 CREATE TABLE IF NOT EXISTS "AIRLINE"(
     "id_airline" varchar(15) NOT NULL,
@@ -163,7 +163,7 @@ INSERT INTO "GATE"('name_gate','name_terminal') VALUES
 ('E1', 'Terminal E'), ('E2', 'Terminal E'), ('E3', 'Terminal E'),
 ('F1', 'Terminal F'), ('F2', 'Terminal F'), ('F3', 'Terminal F');
 
---ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΙΑΣ
+--ΔΕΔΟΜΕΝΑ ΑΕΡΟΠΟΡΙΚΗΣ ΕΤΑΙΡΕΙΑΣ
  INSERT INTO "AIRLINE" ("id_airline","name_airline","email","country","town","web","phone") VALUES 
  ('AEG','AEGEAN','contact@aegeanair.com','ΕΛΛΑΔΑ','ΑΘΗΝΑ','www.aegeanair.com','8997594210'),
  ('AER','Aeroflot','munich@aeroflot.de','ΡΩΣΙΑ','ΜΟΣΧΑ','www.aeroflot.ru','8000001151'),
