@@ -1,7 +1,8 @@
-------
+--Ερωτήματα SQL για ενδεικτικές τυπικές αναζητήσεις, όπως αυτές προκύπτουν από την προσδοκώμενη χρήση της ΒΔ
+
 --1.Εμφάνιση αφίξεων της ημερομηνίας 2021-01-10 κτλ
 --(Αεροπορική εταιρία,αεροπλάνο,χώρα προέλευσης,προγραμματισμένη ώρα,τελική ώρα)
-SELECT AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)
+SELECT F.id_flight,F.name_terminal,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)
 FROM ARRIVAL AS AR JOIN LINE AS L ON AR.id_line = L.id_line
 JOIN FLIGHT AS F ON L.id_line = F.id_line
 JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane
@@ -11,7 +12,7 @@ WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d','2021-01-10');
 
 --2.Εμφάνιση προορισμών της ημερομηνίας 2021-01-10 κτλ
 --(Αεροπορική εταιρία,χώρα προορισμού,προγραμματισμένη ώρα,τελική ώρα)
-SELECT AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)
+SELECT F.id_flight,F.name_terminal,AL.name_airline,AI.name_airplane,AL.country,L.time_line,time(F.date_flight)
 FROM DEPARTURE AS D JOIN LINE AS L ON D.id_line = L.id_line
 JOIN FLIGHT AS F ON L.id_line = F.id_line
 JOIN AIRPLANE AS AI ON F.id_airplane = AI.id_airplane
@@ -19,7 +20,7 @@ JOIN AIRLINE AS AL ON AI.id_airline = AL.id_airline
 WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d','2021-01-10');
 
 
---3.Εμφάνιση καθυστέρησης όλων των πτήσεων
+--3.Εμφάνιση καθυστέρησης όλων των πτήσεων (εξαιρούνται αυτές που δεν έχουν καθυστέρηση)
 --(id πτήσης , καθυστέρηση σε λεπτά)
 SELECT F.id_flight,((strftime('%H',time(F.date_flight)) - strftime('%H',L.time_line))*60)+(strftime('%M',time(F.date_flight))-strftime('%M',L.time_line)) as delay 
 FROM FLIGHT as F join LINE as L on F.id_line = L.id_line  and delay <> 0;
@@ -73,15 +74,50 @@ SELECT L.id_line, A1.country as 'To', A2.country as 'Via'
 FROM AIRPORT AS A1 JOIN DEPARTURE AS D ON A1.id_airport = D.id_airport
 JOIN LINE AS L ON D.id_line = L.id_line
 JOIN MID AS M ON L.id_line = M.id_line
-JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport; 
+JOIN AIRPORT AS A2 ON M.id_airport = A2.id_airport;
 
---6.Ποιές πύλες χρησιμοποιούνται πχ στις 2021-01-05 
-select name_gate 
-from TERMINAL as T JOIN GATE as G ON T.name_terminal = G.name_terminal 
+--8.Ημερομηνίες αφίξεων
+SELECT DISTINCT strftime('%Y %m %d',F.date_flight)
+FROM ARRIVAL AS AR JOIN LINE AS L ON AR.id_line = L.id_line
+JOIN FLIGHT AS F ON L.id_line = F.id_line
+ORDER BY strftime('%Y %m %d',F.date_flight) ;
+--Αντίστοιχα για προορισμούς
+SELECT DISTINCT strftime('%Y %m %d',F.date_flight)
+FROM DEPARTURE AS D JOIN LINE AS L ON D.id_line = L.id_line
+JOIN FLIGHT AS F ON L.id_line = F.id_line
+ORDER BY strftime('%Y %m %d',F.date_flight);
+
+--9.Ποιές πύλες χρησιμοποιούνται πχ στις 2021-01-05 
+select DISTINCT name_gate 
+FROM TERMINAL AS T JOIN GATE as G ON T.name_terminal = G.name_terminal 
 JOIN FLIGHT as F ON T.name_terminal = F.name_terminal 
 WHERE strftime('%Y %m %d',F.date_flight) = strftime('%Y %m %d','2021-01-05');
 
---7. Εμφάνιση πτήσεων με ενδιάμεσες στάσεις 
-SELECT * FROM LINE as L JOIN MID as M on L.id_line = M.id_line
+--10.Πληροφορίες για το αεεροπλάνο που πραγματοποιεί μια πτήση πχ αυτήν με id 152
+SELECT name_airplane,seats,baggage,id_airline,name_category
+FROM FLIGHT AS F JOIN AIRPLANE AS A ON F.id_airplane = A.id_airplane
+WHERE F.id_flight = '152';
 
+--11.Πληροφορίες για τον τόπο άφιξης πχ id πτήσης 152
+SELECT name_airport,country,town
+FROM FLIGHT AS F JOIN LINE AS L ON F.id_line = L.id_line
+JOIN ARRIVAL AS A1 ON L.id_line = A1.id_line
+JOIN AIRPORT AS A2 ON A1.id_airport = A2.id_airport
+WHERE F.id_flight = '152';
+--Αντίστοιχα για τόπο προορισμού πχ id πτήσης 110
+SELECT name_airport,country,town
+FROM FLIGHT AS F JOIN LINE AS L ON F.id_line = L.id_line
+JOIN DEPARTURE AS D ON L.id_line = D.id_line
+JOIN AIRPORT AS A2 ON D.id_airport = A2.id_airport
+WHERE F.id_flight = '110';
 
+--12.Πληροφορίες για το πότε υπάρχει δρομολόγιο (Ημέρα/Ώρα) για συγκεκριμένη χώρα πχ. ΕΛΛΑΔΑ
+SELECT L.id_line,day_line,time_line,country,town 
+FROM LINE AS L JOIN DEPARTURE AS D ON L.id_line = D.id_line 
+JOIN AIRPORT AS A2 ON D.id_airport = A2.id_airport 
+WHERE country = 'ΕΛΛΑΔΑ';
+
+--13.Ώρες που είναι ανοιχτά τα check-in booths για συγκεκριμένη γραμμή (προγραμματισμένη πτήση) πχ id γραμμής 21
+SELECT open_time, close_time 
+FROM CHECKIN AS C JOIN LINE AS L ON C.id_line = L.id_line 
+WHERE L.id_line = '21';
