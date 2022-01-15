@@ -7,5 +7,5 @@
 # Usage
 Τρέξε το αρχείο airport.py 
 
-#
+#Including files
 Το airport.sql περιέχει τον κώδικα και τα δεδομένα για την κατασκευή της βάσης και το airport_query.sql ενδεικτικά queries.
